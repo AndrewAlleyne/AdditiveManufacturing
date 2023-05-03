@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "master",
+      "password": "master",
+      "role": "master",
+      "access_policy": "master"
+    }
+  ]
+}

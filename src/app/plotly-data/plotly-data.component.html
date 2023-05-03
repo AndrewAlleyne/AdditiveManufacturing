@@ -1,0 +1,71 @@
+    <c-card-group>
+        <c-card class="mb-2 ">
+            <c-card-body class="d-flex justify-content-center">
+                <c-input-group>
+
+                    <input aria-describedby="" aria-label="Search graphs" cFormControl
+                        placeholder="Disabled at the moment" disabled />
+                    <button cButton id="" type="button" class="btn  btn-outline-dark">
+                        Search
+                    </button>
+                </c-input-group>
+
+                <c-nav class="justify-content-end">
+                    <c-nav-item>
+                        <c-button-group>
+                            <c-dropdown placement="bottom-start" variant="btn-group">
+                                <button class="btn btn-transparent" cButton cDropdownToggle split>
+                                    Customize charts
+                                </button>
+                            </c-dropdown>
+
+
+                            <c-dropdown placement="bottom-start" variant="btn-group">
+                                <button class="btn btn-transparent" cButton cDropdownToggle split>
+                                    Charts
+                                </button>
+                                <ul cDropdownMenu (click)="addGraph($event)">
+                                    <li><button [routerLink]="[]" cDropdownItem>Pie Chart</button></li>
+                                    <li><button cDropdownItem>Donut Pie Chart</button></li>
+                                    <!-- Attacf different pie chart to different data points. -->
+                                </ul>
+                            </c-dropdown>
+                        </c-button-group>
+                    </c-nav-item>
+                </c-nav>
+            </c-card-body>
+        </c-card>
+    </c-card-group>
+
+
+    <span *ngIf="itemList.length >0; then someContent else noContent">
+    </span>
+
+    <ng-template #noContent>
+        <c-card-body>
+            <h1 cCardTitle> Dashboard Customization </h1>
+            <p cCardText>
+                Customize your dashboard by selecting content from the options above for a personalized view. </p>
+        </c-card-body>
+    </ng-template>
+
+    <ng-template #someContent>
+        <c-card>
+            <c-card-body>
+                <c-row [gutter]="4">
+                    <c-col *ngFor="let graph of itemList" class="md-12" lg="4">
+                        <c-card>
+                            <c-card-header>{{graph.layout.graphTitle}}
+                            </c-card-header>
+                            <c-card-body>
+                                <plotly-plot [data]=" graph.data" [layout]="graph.layout" [useResizeHandler]="true"
+                                    [style]="{position: 'relative', width: '100%', height: '100%'}"></plotly-plot>
+
+                            </c-card-body>
+                        </c-card>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </ng-template>
+

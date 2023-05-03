@@ -1,0 +1,206 @@
+<!-- Page with cards that allows someone to add/remove/edit user -->
+
+<c-row>
+
+    <c-col [lg]="4">
+        <c-card class="mb-4">
+            <!-- Add user -->
+            <c-card-body>
+                <h5 cCardTitle>Add User</h5>
+                <p cCardText>
+                    Add users to the system. Modify each card separately.
+                </p>
+                <button cButton [cModalToggle]="addUserModal.id" (click)="addUser()">
+                    <svg [cIcon]="iconsList.cilUserPlus" size="2xl" title="Add User Icon"></svg>
+                </button>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+<c-row>
+
+    <c-col [lg]="4" *ngFor="let user of users">
+        <div class="mb-4">
+            <c-card class="mb-3">
+                <c-card-body>
+                    <div class="">
+                        <c-avatar style="height:45 width:45" color="light" textColor="white">IMG
+                        </c-avatar>
+                        <h5> {{user.name}} </h5>
+                    </div>
+                    <p cCardText>{{user.email}} </p>
+                    <p cCardText> {{user.role}}</p>
+
+                    <button (click)="modifyUser(user)" [cModalToggle]="modifyUserModal.id" cButton
+                        color="light">Modify</button>
+                </c-card-body>
+                <!-- ? Might be better to do this in a list ? -->
+            </c-card>
+        </div>
+    </c-col>
+</c-row>
+
+
+<!-- Modal for modify -->
+
+<c-modal #modifyUserModal backdrop="static" id="modifyUserModal">
+    <c-modal-header>
+        <h5 cModalTitle>Add New User</h5>
+        <button [cModalToggle]="modifyUserModal.id" cButtonClose></button>
+    </c-modal-header>
+
+
+    <!-- FORM TO SAVE DATA (TWO WAY BINDING) -->
+    <c-modal-body>
+        <form [formGroup]="myForm" (ngSubmit)="onModifySubmit()">
+
+            <div class="d-flex flex-row gap-1">
+                <!-- name -->
+                <div class="mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon1" aria-label="name" cFormControl formControlName="name"
+                            placeholder="name" />
+                    </c-input-group>
+                </div>
+                <!-- EMAIL -->
+                <div class="mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon2" aria-label="email address" cFormControl type="email"
+                            formControlName="email" placeholder="Email" />
+                    </c-input-group>
+                </div>
+            </div>
+
+            <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                <div *ngIf="myForm.get('email')?.errors?.['email']"> Invalid email address</div>
+            </div>
+
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- ROLE -->
+
+            <c-input-group class="mb-3">
+                <select cSelect id="inputGroupSelect02">
+                    <option>Role</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label cInputGroupText for="inputGroupSelect02">
+                    Options
+                </label>
+            </c-input-group>
+
+            <div class="d-flex flex-row gap-1">
+
+                <!-- LANGUAGE -->
+                <div class="col-4">
+                    <c-input-group class="mb-3">
+                        <select cSelect id="inputAccessPolicy">
+                            <option>Access Policy</option>
+                            <option value="1">English</option>
+                            <!-- Other language options -->
+                        </select>
+                    </c-input-group>
+                </div>
+
+                <!-- MOBILE -->
+                <div class="col-8 mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon2" type="tel" aria-label="language" cFormControl
+                            formControlName="mobile" placeholder="(888)-888-8888" />
+                    </c-input-group>
+                </div>
+            </div>
+            <!-- Fix button dual functionality [cModalToggle] -->
+            <button cButton type="submit" color="danger" [disabled]="!myForm.valid">
+                Save Modification
+            </button>
+        </form>
+    </c-modal-body>
+</c-modal>
+
+<!-- Modal for Login -->
+<c-modal #addUserModal backdrop="static" id="addUserModal">
+    <c-modal-header>
+        <h5 cModalTitle>Add New User</h5>
+        <button [cModalToggle]="addUserModal.id" cButtonClose></button>
+    </c-modal-header>
+
+
+    <!-- FORM TO SAVE DATA (TWO WAY BINDING) -->
+    <c-modal-body>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+            <div class="d-flex flex-row gap-1">
+                <!-- name -->
+                <div class="mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon1" aria-label="name" cFormControl formControlName="name"
+                            placeholder="name" />
+                    </c-input-group>
+                </div>
+                <!-- EMAIL -->
+                <div class="mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon2" aria-label="email address" cFormControl type="email"
+                            formControlName="email" placeholder="Email" />
+                    </c-input-group>
+                </div>
+            </div>
+
+            <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                <div *ngIf="myForm.get('email')?.errors?.['email']"> Invalid email address</div>
+            </div>
+
+
+
+
+
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+            <!-- ROLE -->
+
+            <c-input-group class="mb-3">
+                <select cSelect id="inputGroupSelect02">
+                    <option>Role</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label cInputGroupText for="inputGroupSelect02">
+                    Options
+                </label>
+            </c-input-group>
+
+            <div class="d-flex flex-row gap-1">
+
+                <!-- LANGUAGE -->
+                <div class="col-4">
+                    <c-input-group class="mb-3">
+                        <select cSelect id="inputAccessPolicy">
+                            <option>Access Policy</option>
+                            <option value="1">English</option>
+                            <!-- Other language options -->
+                        </select>
+                    </c-input-group>
+                </div>
+
+                <!-- MOBILE -->
+                <div class="col-8 mx-auto">
+                    <c-input-group class="mb-3">
+                        <input aria-describedby="basic-addon2" type="tel" aria-label="language" cFormControl
+                            formControlName="mobile" placeholder="(888)-888-8888" />
+                    </c-input-group>
+                </div>
+            </div>
+            <!-- Fix button dual functionality [cModalToggle] -->
+            <button cButton type="submit" color="light" [disabled]="!myForm.valid">
+                Save
+            </button>
+        </form>
+    </c-modal-body>
+</c-modal>
