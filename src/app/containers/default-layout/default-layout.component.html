@@ -16,7 +16,7 @@
 
     <!-- Takes an array of navItems and displays them -->
     <!-- Filter out items based on loggedIn user here -->
-    <c-sidebar-nav (click)="test()" [navItems]="getNavItems()" dropdownMode="close">
+    <c-sidebar-nav [navItems]="getNavItems()" dropdownMode="close">
     </c-sidebar-nav>
 
 
@@ -36,7 +36,7 @@
   <!--app-body-->
   <div class="body flex-grow-1 px-4">
 
-    
+
     <c-container breakpoint="lg" class="h-auto border-secondary">
       <router-outlet></router-outlet>
     </c-container>
@@ -44,5 +44,3 @@
   <!--app footer-->
   <app-default-footer></app-default-footer>
 </div>
-
-      
