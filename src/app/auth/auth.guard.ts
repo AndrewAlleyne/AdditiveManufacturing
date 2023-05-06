@@ -1,19 +1,19 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivateChild,
   RouterStateSnapshot,
   UrlTree,
   Router,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { NavigationService } from '../services/navigation-service/navigation.service';
-import { INavData } from '@coreui/angular';
-import { UserServiceService } from '../services/api/userAPI/user-service.service';
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "./auth.service";
+import { NavigationService } from "../services/navigation-service/navigation.service";
+import { INavData } from "@coreui/angular";
+import { UserServiceService } from "../services/api/userAPI/user-service.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 
 // TODO: TEST INJECTABLE GUARDS
@@ -49,10 +49,13 @@ export class AuthGuard implements CanActivateChild {
     //Set the filtered list of nav items.
     this.navigationService.setMenuItems(filterMenuItems);
 
+    //Testing settigns only
+    // console.log(this.navigationService.getSettingsOnly(), "Testing settings");
+
     if (isLoggedin) {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(["/login"]);
       return false;
     }
   }

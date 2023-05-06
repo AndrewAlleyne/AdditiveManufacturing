@@ -2,6 +2,8 @@
 
 - [x] Separation of concern. User credentials, Roles, Access Policy should all be separate.
 - [x] User form Validation
+- [ ] Depending on user ROLE(ADMIN, FINANCE, ETC...) show basic menu. MASTER user has everything
+- [ ] Filter by permissions based on which group the particular user belongs to
 - [ ] Real time notifications
 - [ ] Account window
 - [ ] Weather widget
@@ -9,6 +11,18 @@
 - [ ] Personal graph selection
 - [ ] Gather data on sensor information
 - [ ] Find/Develop sorted table
+- [ ] No View linked to Customer database, we just want to make the data available to them
+- [ ] Operations and COntrol is the base menu for every role. The submenu will be based on user access menu.
+
+Operations and Control ( ENGINEERING )
+    * Routing
+    * Job Management
+    Scheduling
+    Service History Tracking
+    Technician Management
+    Repair Tracking
+
+    -[ ] Move uncommon items to the RIGHT ( SETTTINGS and its submenus)
 
 # DONE
 
@@ -25,3 +39,51 @@
 Bugs encounted:
 - [x] VScode changes TS version if you allow it to automatically update file paths. It uses it's own version of ts to judge configurations (FIXED)
 - [x] Module dependency hell
+
+
+# Same menu designs
+Sensors & Actuators Mangement
+Machines Management
+Tools & Jigs Management 
+Asset Management
+
+
+#PAGE 
+
+Failure Analysis 
+    ADMIN
+        - Fixed assets 
+Preventive vs Predicted Analysis
+Financial Analysis 
+Automatic Diagnosis Analysis 
+Root Cause Analysis ( RCA ) 
+- [ ] How to map 
+
+# PIE Charts (FIXED DATA
+ Compare contrast actual vs predicted.
+
+
+
+# Every user has a role in the application. 
+# Every role 
+
+
+
+
+
+#DEB NOTES
+
+Notification and Alarms connected to database Both are fed by the predictive and preventive.
+We are to show numerical numbers where a new number appears and user can download in excel format the alarms
+--------
+
+Preventive (RADIO BUTTONS)Predective (RADIO BUTTONS) Both (RADIO BUTTONS)
+----------
+Options panel on the right side to 
+add information to the graph
+Detail as Option 1, Option 2
+
+---------
+Table detail as 
+
+Parameter 1, Parameter 2, Parameter 3

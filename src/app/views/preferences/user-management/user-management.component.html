@@ -1,5 +1,5 @@
 <!-- Page with cards that allows someone to add/remove/edit user -->
-
+<!-- Might be better if the pill/tabs were sticky to hellp quick navigation -->
 <c-nav variant="pills" class="justify-content-center">
     <c-nav-item>
         <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>
@@ -17,52 +17,35 @@
         </a>
     </c-nav-item>
 </c-nav>
+<!-- TAB CONTENT -->
 <c-tab-content #tabContent="cTabContent" [activeTabPaneIdx]="1">
     <c-tab-pane class="p-3">
-        <c-row>
-
-            <c-col [lg]="4">
-                <c-card class="mb-4">
-                    <!-- Add user -->
-                    <c-card-body>
-                        <h5 cCardTitle>Add User</h5>
-                        <p cCardText>
-                            Add users to the system. Modify each card separately.
-                        </p>
-                        <button cButton [cModalToggle]="addUserModal.id" (click)="addUser()">
-                            <svg [cIcon]="iconsList.cilUserPlus" size="2xl" title="Add User Icon"></svg>
-                        </button>
-                    </c-card-body>
-                </c-card>
-            </c-col>
-        </c-row>
-
-        <c-row>
-
-            <c-col [lg]="4" *ngFor="let user of users">
-                <div class="mb-4">
-                    <c-card class="mb-3">
-                        <c-card-body>
-                            <div class="">
-                                <c-avatar style="height:45 width:45" color="light" textColor="white">IMG
-                                </c-avatar>
-                                <h5> {{user.name}} </h5>
-                            </div>
-                            <p cCardText>{{user.email}} </p>
-                            <p cCardText> {{user.role}}</p>
-
-                            <button (click)="modifyUser(user)" [cModalToggle]="modifyUserModal.id" cButton
-                                color="light">Modify</button>
-                        </c-card-body>
-                        <!-- ? Might be better to do this in a list ? -->
-                    </c-card>
+        <!-- LIST GROUP -->
+        <div cListGroup>
+            <button cListGroupItem class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3> Add users </h3>
+                    <p>Manage Users and Access Policies </p>
                 </div>
-            </c-col>
-        </c-row>
-
+                <button cButton [cModalToggle]="addUserModal.id">
+                    <svg [cIcon]="iconsList.cilUserPlus" size="2xl" title="Add User Icon"></svg>
+                </button>
+            </button>
+            <button cListGroupItem *ngFor="let user of users" class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p>Image</p>
+                    {{user.email}}
+                </div>
+                <div>
+                    {{user.role}}
+                    {{user.access}}
+                </div>
+                <button (click)="modifyUser(user)" [cModalToggle]="modifyUserModal.id" cButton
+                    color="light">Modify</button>
+            </button>
+        </div>
 
         <!-- Modal for modify -->
-
         <c-modal #modifyUserModal backdrop="static" id="modifyUserModal">
             <c-modal-header>
                 <h5 cModalTitle>Add New User</h5>
@@ -75,18 +58,27 @@
                 <form [formGroup]="myForm" (ngSubmit)="onModifySubmit()">
 
                     <div class="d-flex flex-row gap-1">
-                        <!-- name -->
+
+                        <!-- NAME -->
                         <div class="mx-auto">
                             <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon1" aria-label="name" cFormControl
-                                    formControlName="name" placeholder="name" />
+                                <div cFormFloating>
+                                    <input [cFormFloating]="true" aria-describedby="basic-addon1" aria-label="name"
+                                        cFormControl formControlName="name" placeholder="Name" id="name" />
+                                    <label cLabel for="Name">Name</label>
+                                </div>
                             </c-input-group>
                         </div>
+
                         <!-- EMAIL -->
                         <div class="mx-auto">
                             <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon2" aria-label="email address" cFormControl
-                                    type="email" formControlName="email" placeholder="Email" />
+                                <div cFormFloating>
+                                    <input [cFormFloating]="true" id="email" aria-describedby="basic-addon2"
+                                        aria-label="email address" cFormControl type="email" formControlName="email"
+                                        placeholder="Email" />
+                                    <label cLabel for="Email">Email</label>
+                                </div>
                             </c-input-group>
                         </div>
                     </div>
@@ -100,39 +92,52 @@
                     <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
                     <!-- ROLE -->
 
-                    <c-input-group class="mb-3">
-                        <select cSelect id="inputGroupSelect02">
-                            <option>Role</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        <label cInputGroupText for="inputGroupSelect02">
-                            Options
-                        </label>
-                    </c-input-group>
 
-                    <div class="d-flex flex-row gap-1">
-
-                        <!-- LANGUAGE -->
-                        <div class="col-4">
-                            <c-input-group class="mb-3">
-                                <select cSelect id="inputAccessPolicy">
-                                    <option>Access Policy</option>
-                                    <option value="1">English</option>
-                                    <!-- Other language options -->
+                    <div class="d-flex flex-row justify-content-between mb-3 gap-1 align-items-end">
+                        <div class="flex-grow-1">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="roles">Roles</label>
+                                <select size="2" cSelect id="roles" formControlName="accessPolicy" title="Roles"
+                                    id="roles" multiple>
+                                    <option *ngFor="let option of options" value={{option}}>{{option}}</option>
                                 </select>
-                            </c-input-group>
+                            </a>
                         </div>
 
-                        <!-- MOBILE -->
-                        <div class="col-8 mx-auto">
-                            <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon2" type="tel" aria-label="language" cFormControl
-                                    formControlName="mobile" placeholder="(888)-888-8888" />
-                            </c-input-group>
+                        <div class="flex-grow-1 px-3">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="accessPolicy">Access Policy</label>
+                                <select size="2" cSelect id="inputAccessPolicy" formControlName="accessPolicy"
+                                    title="Access Policy" id="accessPolicy" multiple>
+                                    <option *ngFor="let option of options" value={{option}}>{{option}}</option>
+                                </select>
+                            </a>
+                        </div>
+
+                        <div class="flex-grow-1 px-3">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="group">Group</label>
+                                <select size="2" cSelect id="inputAccessPolicy" formControlName="group"
+                                    title="Access Policy" id="accessPolicy" multiple>
+                                    <option *ngFor="let group of groupOptions" value={{group}}>{{group}}</option>
+                                </select>
+                            </a>
+                        </div>
+
+
+                        <div class="flex-grow-1">
+                            <div cFormFloating>
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" type="tel"
+                                    aria-label="language" cFormControl formControlName="mobile" id="mobile"
+                                    placeholder="(888)-888-8888" />
+                                <label for="mobile">(888)-888-8888</label>
+                                <label></label>
+                            </div>
                         </div>
                     </div>
+
+
+
                     <!-- Fix button dual functionality [cModalToggle] -->
                     <button cButton type="submit" color="danger" [disabled]="!myForm.valid">
                         Save Modification
@@ -141,7 +146,7 @@
             </c-modal-body>
         </c-modal>
 
-        <!-- Modal for Login -->
+        <!-- Modal for adding a new user -->
         <c-modal #addUserModal backdrop="static" id="addUserModal">
             <c-modal-header>
                 <h5 cModalTitle>Add New User</h5>
@@ -157,15 +162,15 @@
                         <!-- name -->
                         <div class="mx-auto">
                             <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon1" aria-label="name" cFormControl
-                                    formControlName="name" placeholder="name" />
+                                <input [cFormFloating]="true" aria-describedby="basic-addon1" aria-label="name"
+                                    cFormControl formControlName="name" placeholder="name" />
                             </c-input-group>
                         </div>
                         <!-- EMAIL -->
                         <div class="mx-auto">
                             <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon2" aria-label="email address" cFormControl
-                                    type="email" formControlName="email" placeholder="Email" />
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" aria-label="email address"
+                                    cFormControl type="email" formControlName="email" placeholder="Email" />
                             </c-input-group>
                         </div>
                     </div>
@@ -175,16 +180,11 @@
                     </div>
 
 
-
-
-
-                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
-                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
                     <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
                     <!-- ROLE -->
-
+                    <!-- Needs to change -->
                     <c-input-group class="mb-3">
-                        <select cSelect id="inputGroupSelect02">
+                        <select cSelect id="inputGroupSelect02" formControlName="roles">
                             <option>Role</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -196,23 +196,35 @@
                     </c-input-group>
 
                     <div class="d-flex flex-row gap-1">
-
-                        <!-- LANGUAGE -->
+                        <!-- ACCESS POLICY -->
                         <div class="col-4">
                             <c-input-group class="mb-3">
-                                <select cSelect id="inputAccessPolicy">
-                                    <option>Access Policy</option>
-                                    <option value="1">English</option>
-                                    <!-- Other language options -->
-                                </select>
+                                <a cTooltip="Use CTRL to select multiple">
+                                    <select [size]=options.length cSelect id="inputAccessPolicy"
+                                        formControlName="accessPolicy" multiple>
+                                        <option *ngFor="let option of options" value={{option}}>{{option}}</option>
+                                    </select>
+                                </a>
                             </c-input-group>
+                        </div>
+                        <!-- GROUP -->
+
+                        <div class="flex-grow-1 px-3">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="group">Group</label>
+                                <select size="2" cSelect id="inputAccessPolicy" formControlName="group"
+                                    title="Access Policy" id="accessPolicy" multiple>
+                                    <option *ngFor="let group of groupOptions" value={{group}}>{{group}}</option>
+                                </select>
+                            </a>
                         </div>
 
                         <!-- MOBILE -->
                         <div class="col-8 mx-auto">
                             <c-input-group class="mb-3">
-                                <input aria-describedby="basic-addon2" type="tel" aria-label="language" cFormControl
-                                    formControlName="mobile" placeholder="(888)-888-8888" />
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" type="tel"
+                                    aria-label="language" cFormControl formControlName="mobile"
+                                    placeholder="(888)-888-8888" />
                             </c-input-group>
                         </div>
                     </div>
@@ -227,16 +239,8 @@
 
 
     <c-tab-pane class="p-3">
-        This is some placeholder content the <strong>Profile</strong> tab's associated content. Clicking another
-        tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the
-        content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.
+        <app-pdf-viewer></app-pdf-viewer>
     </c-tab-pane>
-    <!-- example: *ngIf activeTabPaneIdx === 0 disables third cNavLink -->
-    <c-tab-pane *ngIf="tabContent.activeTabPaneIdx > 0" class="p-3">
-        This is some placeholder content the <strong>Contact</strong> tab's associated content. Clicking another tab
-        will
-        toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content
-        visibility
-        and styling. You can use it with tabs, pills, and any other .nav-powered navigation.
-    </c-tab-pane>
+
+    <!-- If there is some odf to show -->
 </c-tab-content>

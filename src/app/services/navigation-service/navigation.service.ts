@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { navItems } from 'src/app/containers/default-layout/_nav';
+import { Injectable } from "@angular/core";
+import { navItems } from "src/app/containers/default-layout/_nav";
 //Import in our user roles
-import { INavData } from '@coreui/angular';
+import { INavData } from "@coreui/angular";
+import { filter } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class NavigationService {
   constructor() {}
@@ -23,8 +24,6 @@ export class NavigationService {
       );
       return matchingRoles && matchingRoles.includes(true);
     });
-
-    console.log('Filtered', filteredItems);
 
     // Return only the items that match userResource. Generate new children objects
     const newItems = filteredItems.map((item) => {
@@ -45,6 +44,14 @@ export class NavigationService {
   }
 
   getMenuItems(): INavData[] {
-    return this.navItems;
+    //Returns a list excluding settings
+    let filteredMenu = this.navItems.filter(
+      (item: any) => item.name !== "Settings"
+    );
+    return filteredMenu;
+  }
+
+  getSettingsOnly() {
+    return this.navItems.filter((menu: any) => menu.name === "Settings");
   }
 }

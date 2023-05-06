@@ -1,137 +1,137 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { SupplyChainManagementComponent } from './supply-chain-management/supply-chain-management.component';
-import { UserManagementComponent } from './user-management/user-management.component';
-import { SensorsActuatorsMangementComponent } from './sensors-actuators-mangement/sensors-actuators-mangement.component';
-import { MachinesManagementComponent } from './machines-management/machines-management.component';
-import { ToolsJigsManagementComponent } from './tools-jigs-management/tools-jigs-management.component';
-import { AssetManagementComponent } from './asset-management/asset-management.component';
-import { OemScheduledPreventiveMaintenanceComponent } from './oem-scheduled-preventive-maintenance/oem-scheduled-preventive-maintenance.component';
-import { PredictedMaintenanceComponent } from './predicted-maintenance/predicted-maintenance.component';
-import { SupervisedLearningComponent } from './supervised-learning/supervised-learning.component';
-import { UnSupervisedLearningComponent } from './un-supervised-learning/un-supervised-learning.component';
-import { ReportingAccessComponent } from './reporting-access/reporting-access.component';
-import { BackupComponent } from './data-path/backup/backup.component';
-import { RestoreComponent } from './restore/restore.component';
-import { SpecialFeaturesComponent } from './special-features/special-features.component';
+import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from "@angular/core";
+import { SupplyChainManagementComponent } from "./supply-chain-management/supply-chain-management.component";
+import { UserManagementComponent } from "./user-management/user-management.component";
+import { SensorsActuatorsMangementComponent } from "./sensors-actuators-mangement/sensors-actuators-mangement.component";
+import { MachinesManagementComponent } from "./machines-management/machines-management.component";
+import { ToolsJigsManagementComponent } from "./tools-jigs-management/tools-jigs-management.component";
+import { AssetManagementComponent } from "./asset-management/asset-management.component";
+import { OemScheduledPreventiveMaintenanceComponent } from "./oem-scheduled-preventive-maintenance/oem-scheduled-preventive-maintenance.component";
+import { PredictedMaintenanceComponent } from "./predicted-maintenance/predicted-maintenance.component";
+import { SupervisedLearningComponent } from "./supervised-learning/supervised-learning.component";
+import { UnSupervisedLearningComponent } from "./un-supervised-learning/un-supervised-learning.component";
+import { ReportingAccessComponent } from "./reporting-access/reporting-access.component";
+import { BackupComponent } from "./data-path/backup/backup.component";
+import { RestoreComponent } from "./restore/restore.component";
+import { SpecialFeaturesComponent } from "./special-features/special-features.component";
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     data: {
-      title: 'Settings',
+      title: "Settings",
     },
     children: [
       {
-        path: 'user-management',
+        path: "user-management",
         component: UserManagementComponent,
         data: {
-          title: 'Engineering',
+          title: "Engineering",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'sensors-actuators-management',
+        path: "sensors-actuators-management",
         component: SensorsActuatorsMangementComponent,
         data: {
-          title: 'Sensors Actuators Management',
+          title: "Sensors Actuators Management",
         },
-        pathMatch: 'full',
+        pathMatch: "prefix",
       },
       {
-        path: 'machines-management',
+        path: "machines-management",
         component: MachinesManagementComponent,
         data: {
-          title: 'Machine Management',
+          title: "Machine Management",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'tools-jigs-management',
+        path: "tools-jigs-management",
         component: ToolsJigsManagementComponent,
         data: {
-          title: 'Tools Jigs Management',
+          title: "Tools Jigs Management",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'asset-management',
+        path: "asset-management",
         component: AssetManagementComponent,
         data: {
-          title: 'Asset Management',
+          title: "Asset Management",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'supply-chain-management',
+        path: "supply-chain-management",
         component: SupplyChainManagementComponent,
         data: {
-          title: 'Supply Chain Management',
+          title: "Supply Chain Management",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'oem-scheduled-preventative-maintenace',
+        path: "oem-scheduled-preventative-maintenace",
         component: OemScheduledPreventiveMaintenanceComponent,
         data: {
-          title: 'OEM Scheduled Preventative Maintenance',
+          title: "OEM Scheduled Preventative Maintenance",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'predicted-maintenance',
+        path: "predicted-maintenance",
         component: PredictedMaintenanceComponent,
         data: {
-          title: 'Predicted Maintenance',
+          title: "Predicted Maintenance",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'supervised-learning',
+        path: "supervised-learning",
         component: SupervisedLearningComponent,
         data: {
-          title: 'Supervised Learning',
+          title: "Supervised Learning",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'unsupervised-learning',
+        path: "unsupervised-learning",
         component: UnSupervisedLearningComponent,
         data: {
-          title: 'Unsupervised Learning',
+          title: "Unsupervised Learning",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'reporting-access',
+        path: "reporting-access",
         component: ReportingAccessComponent,
         data: {
-          title: 'Reporting Access',
+          title: "Reporting Access",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'Data Path Backup ',
+        path: "Data Path Backup ",
         component: BackupComponent,
         data: {
-          title: 'Reporting Access',
+          title: "Reporting Access",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'Restore ',
+        path: "Restore ",
         component: RestoreComponent,
         data: {
-          title: 'Restore',
+          title: "Restore",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
       {
-        path: 'Special Features ',
+        path: "Special Features ",
         component: SpecialFeaturesComponent,
         data: {
-          title: 'Speacial Features',
+          title: "Speacial Features",
         },
-        pathMatch: 'full',
+        pathMatch: "full",
       },
     ],
   },

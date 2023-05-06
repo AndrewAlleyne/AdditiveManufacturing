@@ -1,1 +1,245 @@
-<p>asset-management works!</p>
+<!-- Page with cards that allows someone to add/remove/edit user -->
+<!-- Might be better if the pill/tabs were sticky to hellp quick navigation -->
+<!-- Every Asset has the option to use AI/ML control  -->
+<!-- TODO: RENAME PROPERLY -->
+<c-nav variant="pills" class="justify-content-center">
+    <c-nav-item>
+        <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>
+            Manage Assets
+        </a>
+    </c-nav-item>
+    <c-nav-item>
+        <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>
+            OEM Asset Datasheet
+        </a>
+    </c-nav-item>
+</c-nav>
+<!-- TAB CONTENT -->
+<c-tab-content #tabContent="cTabContent" [activeTabPaneIdx]="1">
+    <c-tab-pane class="p-3">
+        <!-- LIST GROUP -->
+        <div cListGroup>
+            <button cListGroupItem class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3> Add assets </h3>
+                    <p>Manage Assets and their Access Policies </p>
+                </div>
+                <button cButton [cModalToggle]="addUserModal.id">
+                    <svg [cIcon]="" size="2xl" title="Add User Icon"></svg>
+                </button>
+            </button>
+            <button cListGroupItem *ngFor="let user of users" class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p>Image</p>
+                    {{user.email}}
+                </div>
+                <div>
+                    {{user.role}}
+                    {{user.access}}
+                </div>
+                <button (click)="modifyUser(user)" [cModalToggle]="modifyUserModal.id" cButton
+                    color="light">Modify</button>
+            </button>
+        </div>
+
+        <!-- Modal for modify -->
+        <c-modal #modifyUserModal backdrop="static" id="modifyUserModal">
+            <c-modal-header>
+                <h5 cModalTitle>Add New User</h5>
+                <button [cModalToggle]="modifyUserModal.id" cButtonClose></button>
+            </c-modal-header>
+
+
+            <!-- FORM TO SAVE DATA (TWO WAY BINDING) -->
+            <c-modal-body>
+                <form [formGroup]="myForm" (ngSubmit)="onModifySubmit()">
+
+                    <div class="d-flex flex-row gap-1">
+
+                        <!-- NAME -->
+                        <div class="mx-auto">
+                            <c-input-group class="mb-3">
+                                <div cFormFloating>
+                                    <input [cFormFloating]="true" aria-describedby="basic-addon1" aria-label="name"
+                                        cFormControl formControlName="name" placeholder="Name" id="name" />
+                                    <label cLabel for="Name">Name</label>
+                                </div>
+                            </c-input-group>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="mx-auto">
+                            <c-input-group class="mb-3">
+                                <div cFormFloating>
+                                    <input [cFormFloating]="true" id="email" aria-describedby="basic-addon2"
+                                        aria-label="email address" cFormControl type="email" formControlName="email"
+                                        placeholder="Email" />
+                                    <label cLabel for="Email">Email</label>
+                                </div>
+                            </c-input-group>
+                        </div>
+                    </div>
+
+                    <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                        <div *ngIf="myForm.get('email')?.errors?.['email']"> Invalid email address</div>
+                    </div>
+
+                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+                    <!-- ROLE -->
+
+
+                    <div class="d-flex flex-row justify-content-between mb-3 gap-1 align-items-end">
+                        <div class="flex-grow-1">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="roles">Roles</label>
+                                <select size="2" cSelect id="roles" formControlName="accessPolicy" title="Roles"
+                                    id="roles" multiple>
+                                    <option *ngFor="let option of options" value={{option}}>{{option}}</option>
+                                </select>
+                            </a>
+                        </div>
+
+                        <div class="flex-grow-1 px-3">
+                            <a cTooltip=" Use CTRL to select multiple">
+                                <label cLabel for="accessPolicy">Access Policy</label>
+                                <select size="2" cSelect id="inputAccessPolicy" formControlName="accessPolicy"
+                                    title="Access Policy" id="accessPolicy" multiple>
+                                    <option *ngFor="let option of options" value={{option}}>{{option}}</option>
+                                </select>
+                            </a>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <div cFormFloating>
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" type="tel"
+                                    aria-label="language" cFormControl formControlName="mobile" id="mobile"
+                                    placeholder="(888)-888-8888" />
+                                <label for="mobile">(888)-888-8888</label>
+                                <label></label>
+                            </div>
+                        </div>
+
+                        <!-- AI/ML -->
+                        <c-form-check>
+                            <input [checked]="true" cFormCheckInput id="checkTwo" type="checkbox"
+                                formControlName="checkedAiML" />
+                            <!-- Toolip -->
+                            <label cFormCheckLabel for="checkTwo">AI/ML</label>
+                        </c-form-check>
+
+                    </div>
+
+
+
+                    <!-- Fix button dual functionality [cModalToggle] -->
+                    <button cButton type="submit" color="danger" [disabled]="!myForm.valid">
+                        Save Modification
+                    </button>
+                </form>
+            </c-modal-body>
+        </c-modal>
+
+        <!-- Modal for adding a new user -->
+        <c-modal #addUserModal backdrop="static" id="addUserModal">
+            <c-modal-header>
+                <h5 cModalTitle>Add New User</h5>
+                <button [cModalToggle]="addUserModal.id" cButtonClose></button>
+            </c-modal-header>
+
+
+            <!-- ADDING ASSETS -->
+            <c-modal-body>
+                <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+                    <div class="d-flex flex-row gap-1">
+                        <!-- name -->
+                        <div class="mx-auto">
+                            <c-input-group class="mb-3">
+                                <input [cFormFloating]="true" aria-describedby="basic-addon1" aria-label="name"
+                                    cFormControl formControlName="name" placeholder="name" />
+                            </c-input-group>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="mx-auto">
+                            <c-input-group class="mb-3">
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" aria-label="email address"
+                                    cFormControl type="email" formControlName="email" placeholder="Email" />
+                            </c-input-group>
+                        </div>
+                    </div>
+
+                    <!-- VALIDATION -->
+                    <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                        <div *ngIf="myForm.get('email')?.errors?.['email']"> Invalid email address</div>
+                    </div>
+
+
+                    <!-- TODO: ADD OPTION FOR MULTIPE ROLES -->
+                    <!-- ROLE -->
+                    <c-input-group class="mb-3">
+                        <select cSelect id="inputGroupSelect02" formControlName="roles">
+                            <option>Role</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label cInputGroupText for="inputGroupSelect02">
+                            Options
+                        </label>
+                    </c-input-group>
+
+                    <div class="d-flex flex-row gap-1">
+                        <!-- ACCESS POLICY -->
+                        <div class="col-4">
+                            <c-input-group class="mb-3">
+                                <a cTooltip="Use CTRL to select multiple">
+                                    <select [size]=options.length cSelect id="inputAccessPolicy"
+                                        formControlName="accessPolicy" multiple>
+                                        <option *ngFor="let option of options" value={{option}}>{{option}}</option>
+                                    </select>
+                                </a>
+                            </c-input-group>
+                        </div>
+
+                        <!-- MOBILE -->
+                        <div class="col-8 mx-auto">
+                            <c-input-group class="mb-3">
+                                <input [cFormFloating]="true" aria-describedby="basic-addon2" type="tel"
+                                    aria-label="language" cFormControl formControlName="mobile"
+                                    placeholder="(888)-888-8888" />
+                            </c-input-group>
+                        </div>
+
+                        <!-- AI/ML -->
+                        <c-form-check>
+                            <input [checked]="true" cFormCheckInput id="checkTwo" type="checkbox"
+                                formControlName="checkedAiML" />
+                            <!-- Toolip -->
+                            <label cFormCheckLabel for="checkTwo">AI/ML</label>
+                        </c-form-check>
+
+                    </div>
+                    <!-- Fix button dual functionality [cModalToggle] -->
+
+
+                    <button cButton type="submit" color="light" [disabled]="!myForm.valid">
+                        Save
+                    </button>
+                </form>
+            </c-modal-body>
+        </c-modal>
+    </c-tab-pane>
+
+
+    <c-tab-pane class="p-3">
+        <app-pdf-viewer></app-pdf-viewer>
+    </c-tab-pane>
+
+    <!-- If there is some odf to show -->
+    <c-tab-pane class="p-3">
+        AI/ML
+    </c-tab-pane>
+</c-tab-content>

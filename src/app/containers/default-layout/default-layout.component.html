@@ -1,5 +1,7 @@
+
 <!-- sidebar -->
-<c-sidebar #sidebar="cSidebar" size="xl" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+<c-sidebar #sidebar="cSidebar" [overlaid]=true size="lg" class="d-print-none sidebar sidebar-fixed" id="sidebar"
+  visible>
   <c-sidebar-brand [brandFull]="{
       src: 'assets/img/brand/c-logo.png',
       width: 100,
@@ -19,13 +21,9 @@
     <c-sidebar-nav [navItems]="getNavItems()" dropdownMode="close">
     </c-sidebar-nav>
 
-
-
-
-
-
   </perfect-scrollbar>
-  <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar"></c-sidebar-toggler>
+  <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="visible" cSidebarToggle="sidebar">
+  </c-sidebar-toggler>
 </c-sidebar>
 
 <!--main-->

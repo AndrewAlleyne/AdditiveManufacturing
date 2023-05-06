@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { INavData } from '@coreui/angular';
-import { NavigationService } from '../../services/navigation-service/navigation.service';
+import { Component } from "@angular/core";
+import { INavData } from "@coreui/angular";
+import { NavigationService } from "../../services/navigation-service/navigation.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './default-layout.component.html',
+  selector: "app-dashboard",
+  templateUrl: "./default-layout.component.html",
 })
 export class DefaultLayoutComponent {
   // Get the roles from the Authentication service and filter them here
