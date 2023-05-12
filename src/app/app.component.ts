@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'Ranial Systems Demo';
+  title = 'Asset Mate';
 
   constructor(
     private router: Router,

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { userType } from "src/user/accessPolicy";
+import { IUser } from "src/user/types/userTypes";
 @Component({
   selector: "app-asset-management",
   templateUrl: "./asset-management.component.html",
@@ -36,7 +36,6 @@ export class AssetManagementComponent {
   }
 
   addUser() {
-    console.log(this.options);
   }
 
   //Get the user object from tile being edited
@@ -119,7 +118,7 @@ export class AssetManagementComponent {
       if (userList) {
         // Find the index number of the user
         let index = userList.findIndex(
-          (user: userType) => user.email === formControlObject.email
+          (user: IUser) => user.email === formControlObject.email
         );
 
         // If there is a user then replace the old user with the new user

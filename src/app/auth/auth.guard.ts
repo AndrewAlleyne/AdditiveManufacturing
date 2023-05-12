@@ -36,23 +36,21 @@ export class AuthGuard implements CanActivateChild {
     //Check if the user is logged in via the service
     let isLoggedin: boolean = this.authService.isAuthenticated();
 
-    //Get the user role
-    const userRole = this.authService.getUserRole();
-
-    // Get the user resources.
-    const userResources: string[] = this.authService.getUserResource();
-
-    //Filter nav menu
-    const filterMenuItems: INavData[] =
-      this.navigationService.filterNavItemsByRole(userRole, userResources);
-
-    //Set the filtered list of nav items.
-    this.navigationService.setMenuItems(filterMenuItems);
-
     //Testing settigns only
-    // console.log(this.navigationService.getSettingsOnly(), "Testing settings");
-
     if (isLoggedin) {
+      //Get the user role
+      const userRole = this.userService.getUserRoles();
+
+      // Get the user resources.
+      const userResources: string[] = this.authService.getUserResource();
+
+      //Filter nav menu
+      const filterMenuItems: INavData[] =
+        this.navigationService.filterNavItemsByRole(userRole, userResources);
+
+      //Set the filtered list of nav items.
+      this.navigationService.setMenuItems(filterMenuItems);
+
       return true;
     } else {
       this.router.navigate(["/login"]);

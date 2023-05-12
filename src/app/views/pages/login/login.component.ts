@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import { IUser } from 'src/user/userTypes';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/auth/auth.service";
+import { IUserLogin } from "src/user/types/userTypes";
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   //Create a from group and assocaite the view
@@ -18,31 +18,31 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    if (window.localStorage.getItem('user')) {
+    if (window.localStorage.getItem("user")) {
       this.authService.isLoggedIn = true;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(["/dashboard"]);
     }
   }
 
   // Checks credentials to allow or deny user access
   onSubmit() {
-    // Get user credentials from form
-    let credentials: Partial<IUser> = this.loginForm.value;
+    // Get user credentials from form.
+    // User must submit fields as per required .
+    let credentials = this.loginForm.value as Required<IUserLogin>;
 
     //Authorize user with credentials
     this.authService.auth(credentials);
 
     //Check if user is authenticated
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(["/dashboard"]);
     } else {
-      console.log('Login Component, user needs to authenticate');
+      throw new Error("User needs to authenticate");
     }
   }
 
   //Navigates us the credentials page for DEMO
   forgotPassword() {
-    console.log('Will show password on screen');
-    this.router.navigate(['/show-credentials']);
+    this.router.navigate(["/show-credentials"]);
   }
 }

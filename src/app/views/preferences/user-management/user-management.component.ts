@@ -8,7 +8,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { cilUserPlus } from "@coreui/icons";
-import { userType } from "src/user/accessPolicy";
+import { IUser } from "src/user/types/userTypes";
 
 @Component({
   selector: "app-user-management",
@@ -136,7 +136,7 @@ export class UserManagementComponent implements OnInit {
       if (userList) {
         // Find the index number of the user
         let index = userList.findIndex(
-          (user: userType) => user.email === formControlObject.email
+          (user: IUser) => user.email === formControlObject.email
         );
 
         // If there is a user then replace the old user with the new user

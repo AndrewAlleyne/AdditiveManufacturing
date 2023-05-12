@@ -9,7 +9,15 @@ export const navItems: INavData[] = [
       color: "info",
       text: "",
     },
-    roles: ["Admin", "Accounts", "Analysis", "Master"],
+    roles: [
+      "Admin",
+      "Accounts",
+      "Finance",
+      "Master",
+      "Engineering",
+      "SupplyChainManagement",
+      "SalesAndMarketing",
+    ],
   },
   {
     name: "Operations & Control",
@@ -20,8 +28,131 @@ export const navItems: INavData[] = [
       text: "",
     },
     children: [
+      {
+        name: "Customer DataBase",
+        url: "/ops/customer-database",
+        roles: ["Accounts"],
+      },
+      {
+        name: "Asset Tracking",
+        url: "/ops/asset-tracking",
+        roles: ["Admin"],
+      },
+      {
+        name: "Key & Lock Management",
+        url: "/ops/key-lock-management",
+        roles: ["Admin"],
+      },
+      {
+        name: "Maintenance Scheduling",
+        url: "/ops/maintenance-scheduling",
+        roles: ["Admin"],
+      },
+      {
+        name: "Preventive Maintenance",
+        url: "/ops/preventive-maintenance",
+        roles: ["Admin"],
+      },
+      {
+        name: "Equipment Tracking",
+        url: "/ops/equipment-tracking",
+        roles: ["Admin"],
+      },
+      {
+        name: "Warranty Tracking",
+        url: "/ops/warranty-tracking",
+        roles: ["Admin"],
+      },
+      {
+        name: "Maintenance History",
+        url: "/ops/maintenance-history",
+        roles: ["Admin"],
+      },
+      {
+        name: "Routing",
+        url: "/ops/routing",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Job Management",
+        url: "/ops/job-management",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Scheduling",
+        url: "/ops/scheduling",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Service History Tracking",
+        url: "/ops/service-history-tracking",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Technician Management",
+        url: "/ops/technician-management",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Repair Tracking",
+        url: "/ops/repair-tracking",
+        roles: ["Engineering"],
+      },
+      {
+        name: "Job Costing",
+        url: "/ops/job-costing",
+        roles: ["Finance"],
+      },
+      {
+        name: "Cost Tracking",
+        url: "/ops/cost-tracking",
+        roles: ["Finance"],
+      },
+      {
+        name: "Work Order Management",
+        url: "/ops/work-order-management",
+        roles: ["SalesAndMarketing"],
+      },
+      {
+        name: "Inventory Management",
+        url: "/ops/inventory-management",
+        roles: ["SupplyChainManagement"],
+      },
+      {
+        name: "Vehicle Information",
+        url: "/ops/vehicle-information",
+        roles: ["SupplyChainManagement"],
+      },
+      {
+        name: "Dispatch Management",
+        url: "/ops/dispatch-management",
+        roles: ["SupplyChainManagement"],
+      },
+      {
+        name: "Purchasing",
+        url: "/ops/purchasing",
+        roles: ["SupplyChainManagement"],
+      },
+      {
+        name: "Inventory control",
+        url: "/ops/inventory-control",
+        roles: ["SupplyChainManagement"],
+      },
+      {
+        name: "Parts Inventory Management",
+        url: "/ops/parts-inventory-management",
+        roles: ["SupplyChainManagement"],
+      },
     ],
-    roles: ["Admin", "Accounts"],
+    roles: [
+      "Admin",
+      "Accounts",
+      "Finance",
+      "Master",
+      "Engineering",
+      "SupplyChainManagement",
+      "SalesAndMarketing",
+    ],
   },
   {
     name: "Settings",
@@ -54,12 +185,8 @@ export const navItems: INavData[] = [
         name: "Asset Management",
         url: "/settings/asset-management",
       },
-      // {
-      //   name: 'Supply Chain Management',
-      //   url: '/settings/supply-chain-management',
-      // },
       {
-        name: "OEM Scheduled Preventative Maintenace",
+        name: "OEM Scheduled Preventive Maintenance",
         url: "/settings/oem-scheduled-preventative-maintenace",
       },
       {
@@ -79,6 +206,10 @@ export const navItems: INavData[] = [
         url: "/settings/data-path-backup",
       },
       {
+        name: "Predicted Maintenance",
+        url: "/settings/data-path-backup",
+      },
+      {
         name: "Restore",
         url: "/settings/restore",
       },
@@ -87,7 +218,15 @@ export const navItems: INavData[] = [
         url: "/settings/special-features",
       },
     ],
-    roles: ["Admin", "Master", "Engineering"],
+    roles: [
+      "Master",
+      "Admin",
+      "Engineering",
+      "Accounts",
+      "Finance",
+      "SalesAndMarketing",
+      "SupplyChainManagement",
+    ],
   },
   {
     name: "Report",
@@ -129,6 +268,6 @@ export const navItems: INavData[] = [
         url: "/analysis/root-cause-analysis",
       },
     ],
-    roles: ["Admin", "Accounts", "Engineering"],
+    roles: ["Admin", "Accounts", "Engineering", "SalesAndMarketing"],
   },
 ];

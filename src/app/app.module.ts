@@ -48,6 +48,29 @@ import {
   UtilitiesModule,
 } from "@coreui/angular";
 import { IconModule, IconSetService } from "@coreui/icons-angular";
+import { CustomerDataBaseComponent } from './views/customer-data-base/customer-data-base.component';
+import { AssetTrackingComponent } from './views/asset-tracking/asset-tracking.component';
+import { KeyLockManagementComponent } from './views/key-lock-management/key-lock-management.component';
+import { MaintenanceSchedulingComponent } from './views/maintenance-scheduling/maintenance-scheduling.component';
+import { PreventiveMaintenanceComponent } from './views/preventive-maintenance/preventive-maintenance.component';
+import { EquipmentTrackingComponent } from './views/equipment-tracking/equipment-tracking.component';
+import { WarrantyTrackingComponent } from './views/warranty-tracking/warranty-tracking.component';
+import { MaintenanceHistoryComponent } from './views/maintenance-history/maintenance-history.component';
+import { RoutingComponent } from './views/routing/routing.component';
+import { JobManagementComponent } from './views/job-management/job-management.component';
+import { SchedulingComponent } from './views/scheduling/scheduling.component';
+import { ServiceHistoryTrackingComponent } from './views/service-history-tracking/service-history-tracking.component';
+import { TechnicianManagementComponent } from './views/technician-management/technician-management.component';
+import { RepairTrackingComponent } from './views/repair-tracking/repair-tracking.component';
+import { JobCostingComponent } from './views/job-costing/job-costing.component';
+import { CostTrackingComponent } from './views/cost-tracking/cost-tracking.component';
+import { WorkOrderManagementComponent } from './views/work-order-management/work-order-management.component';
+import { InventoryManagementComponent } from './views/inventory-management/inventory-management.component';
+import { VehicleInformationComponent } from './views/vehicle-information/vehicle-information.component';
+import { DispatchManagementComponent } from './views/dispatch-management/dispatch-management.component';
+import { PurchasingComponent } from './views/purchasing/purchasing.component';
+import { InventoryControlComponent } from './views/inventory-control/inventory-control.component';
+import { PartsInventoryManagementComponent } from './views/parts-inventory-management/parts-inventory-management.component';
 
 //Removes horizontal scrollbars
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -61,7 +84,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, CustomerDataBaseComponent, AssetTrackingComponent, KeyLockManagementComponent, MaintenanceSchedulingComponent, PreventiveMaintenanceComponent, EquipmentTrackingComponent, WarrantyTrackingComponent, MaintenanceHistoryComponent, RoutingComponent, JobManagementComponent, SchedulingComponent, ServiceHistoryTrackingComponent, TechnicianManagementComponent, RepairTrackingComponent, JobCostingComponent, CostTrackingComponent, WorkOrderManagementComponent, InventoryManagementComponent, VehicleInformationComponent, DispatchManagementComponent, PurchasingComponent, InventoryControlComponent, PartsInventoryManagementComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

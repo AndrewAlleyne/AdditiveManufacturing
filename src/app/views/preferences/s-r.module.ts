@@ -110,7 +110,7 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
-        path: "Data Path Backup ",
+        path: "data-path-backup",
         component: BackupComponent,
         data: {
           title: "Reporting Access",
@@ -118,7 +118,7 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
-        path: "Restore ",
+        path: "restore",
         component: RestoreComponent,
         data: {
           title: "Restore",
@@ -126,7 +126,7 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
-        path: "Special Features ",
+        path: "special-features",
         component: SpecialFeaturesComponent,
         data: {
           title: "Speacial Features",

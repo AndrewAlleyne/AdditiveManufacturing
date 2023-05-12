@@ -1,4 +1,4 @@
-# TODO_
+# TODO\_
 
 - [x] Separation of concern. User credentials, Roles, Access Policy should all be separate.
 - [x] User form Validation
@@ -15,12 +15,12 @@
 - [ ] Operations and COntrol is the base menu for every role. The submenu will be based on user access menu.
 
 Operations and Control ( ENGINEERING )
-    * Routing
-    * Job Management
-    Scheduling
-    Service History Tracking
-    Technician Management
-    Repair Tracking
+_ Routing
+_ Job Management
+Scheduling
+Service History Tracking
+Technician Management
+Repair Tracking
 
     -[ ] Move uncommon items to the RIGHT ( SETTTINGS and its submenus)
 
@@ -37,53 +37,67 @@ Operations and Control ( ENGINEERING )
 - [x] Reusuable Table Component
 
 Bugs encounted:
+
 - [x] VScode changes TS version if you allow it to automatically update file paths. It uses it's own version of ts to judge configurations (FIXED)
 - [x] Module dependency hell
 
-
 # Same menu designs
+
 Sensors & Actuators Mangement
 Machines Management
-Tools & Jigs Management 
+Tools & Jigs Management
 Asset Management
 
+#PAGE
 
-#PAGE 
-
-Failure Analysis 
-    ADMIN
-        - Fixed assets 
+Failure Analysis
+ADMIN - Fixed assets
 Preventive vs Predicted Analysis
-Financial Analysis 
-Automatic Diagnosis Analysis 
-Root Cause Analysis ( RCA ) 
-- [ ] How to map 
+Financial Analysis
+Automatic Diagnosis Analysis
+Root Cause Analysis ( RCA )
+
+- [ ] How to map
 
 # PIE Charts (FIXED DATA
- Compare contrast actual vs predicted.
 
+Compare contrast actual vs predicted.
 
+# Every user has a role in the application.
 
-# Every user has a role in the application. 
-# Every role 
-
-
-
-
+# Every role
 
 #DEB NOTES
 
 Notification and Alarms connected to database Both are fed by the predictive and preventive.
 We are to show numerical numbers where a new number appears and user can download in excel format the alarms
---------
 
-Preventive (RADIO BUTTONS)Predective (RADIO BUTTONS) Both (RADIO BUTTONS)
-----------
-Options panel on the right side to 
+---
+
+## Preventive (RADIO BUTTONS)Predective (RADIO BUTTONS) Both (RADIO BUTTONS)
+
+Options panel on the right side to
 add information to the graph
 Detail as Option 1, Option 2
 
----------
-Table detail as 
+---
+
+Table detail as
 
 Parameter 1, Parameter 2, Parameter 3
+
+Functions need to be implemented.
+
+- [ ] Search graphs function
+- [ ] Filter graph view
+- [ ] Decide on what Options to be placed in menu
+- [ ] What information should the table contain
+- [ ] Build/Find ascending/descending table
+
+## Refactor
+
+- [ ] Make components resusable
+
+- [ ] User wants to login into different accounts so that they can see different views based on what they're interested in.
+  - [ ] d
+- [ ] Animations for plots

@@ -65,6 +65,7 @@ import { ChartjsModule } from "@coreui/angular-chartjs";
     IconModule,
     DropdownModule,
     AvatarModule,
+    TableModule,
     ModalModule,
     ListGroupModule,
     PreferencesRoutingModule,

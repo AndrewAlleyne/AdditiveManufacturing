@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
 })
 export class PolicyAComponent {
   sendData(data: string) {
-    console.log('Data', data);
   }
 }

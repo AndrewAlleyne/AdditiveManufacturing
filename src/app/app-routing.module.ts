@@ -24,11 +24,12 @@ const routes: Routes = [
     data: {
       title: "Home",
     },
-    //canActivate: [RootAuthGuard],
+    canActivate: [RootAuthGuard],
     canActivateChild: [AuthGuard],
     children: [
       {
         path: "dashboard",
+        data: {},
         loadChildren: () =>
           import("./views/dashboard/dashboard.module").then(
             (m) => m.DashboardModule

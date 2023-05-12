@@ -27,7 +27,6 @@ export class RootAuthGuard implements CanActivate {
 
     let isUserLoggedIn = this.authService.isLoggedIn;
     
-    console.log('Root Authentication Called, User status is: ', isUserLoggedIn);
     if (isUserLoggedIn) {
       return true;
     }
