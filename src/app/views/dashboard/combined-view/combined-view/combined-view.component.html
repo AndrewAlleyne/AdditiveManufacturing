@@ -1,0 +1,63 @@
+<c-card class="mb-4">
+  <c-card-body>
+    <div [formGroup]="btnCheckGroup">
+      <c-button-group variant="outline">
+        <input
+          title="checkbox1"
+          class="btn-check"
+          formControlName="checkbox1"
+          type="checkbox" />
+        <label
+          for="checkbox1"
+          (click)="setValue('checkbox1')"
+          cButton
+          cFormCheckLabel
+          variant="ghost"
+          >Table</label
+        >
+
+        <input
+          title="checkbox2"
+          class="btn-check"
+          formControlName="checkbox2"
+          type="checkbox" />
+        <label
+          for="checkbox2"
+          (click)="setValue('checkbox2')"
+          cButton
+          cFormCheckLabel
+          variant="ghost"
+          >Chart</label
+        >
+      </c-button-group>
+    </div>
+  </c-card-body>
+</c-card>
+
+<ng-template #dataView>
+  <data-table></data-table>
+</ng-template>
+<ng-template #chartView>
+  <data-chart> </data-chart>
+</ng-template>
+
+<c-row>
+  <c-col [md]="8" class="mb-4">
+    <c-card>
+      <c-card-body *ngIf="condition1 || condition2">
+        <div class="table table-fixed-height">
+          <ng-container *ngIf="condition1; then dataView"></ng-container>
+          <ng-container *ngIf="condition2; then chartView"></ng-container>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col [md]="4">
+    <c-card-body>
+      <app-rt-table> </app-rt-table>
+    </c-card-body>
+  </c-col>
+</c-row>
+
+<app-warning-alert></app-warning-alert>

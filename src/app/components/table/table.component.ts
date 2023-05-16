@@ -5,8 +5,6 @@ import {
   PipeTransform,
   SimpleChanges,
 } from "@angular/core";
-import { KeysPipe } from "src/app/keys.pipe";
-import { ValuesPipe } from "src/app/values.pipe";
 
 interface Object {
   [key: string]: any;

@@ -1,45 +1,119 @@
-<div class="table-responsive">
-  <table class="table w-100 overflow-">
-    <tr>
-      <th
-        *ngFor="let d of data; let i = index"
-        scope="col"
-        [style.display]="i >= tableData.length ? 'none' : 'table-cell'"
-      >
-        <span *ngIf="headerObjects[i]">
-          {{ d }}
-        </span>
-      </th>
-
-      <!-- <th *ngFor="let key of Object.keys(headerObject)">
-      
-      </th> -->
-    </tr>
-
-    <tr>
-      <ng-container>
-        <!-- Table data should never exceed table headers -->
-        <td *ngFor="let d of tableData; let i = index">
-          {{ d }}
-        </td>
-      </ng-container>
-    </tr>
-
-    <!-- <tr>
-        <ng-container *ngFor="let d of tableData; let i = index">
-          <td
-            scope="col"
-            [style.display]="
-              i >= tableData.length || !d ? 'none' : 'table-cell'
-            "
-          >
-            <span *ngIf="headerObjects[i]">
-              {{ d }}
-            </span>
-          </td>
-        </ng-container>
-      </tr> -->
+<div class="table table-fixed-height">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
   </table>
-  <br />
-  <!--  -->
 </div>

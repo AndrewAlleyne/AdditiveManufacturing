@@ -11,6 +11,7 @@ import { AuthGuard } from "./auth/auth.guard";
 import { RootAuthGuard } from "./auth/root/root-auth.guard";
 import { AuthService } from "./auth/auth.service";
 import { SettingsComponent } from "./views/preferences/settings.component";
+import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,13 @@ const routes: Routes = [
             (m) => m.PreferencesModule
           ),
         // component: SettingsComponent,
+      },
+      {
+        path: "asset",
+        component: AssetInfoComponent,
+        data: {
+          title: "Asset Information",
+        },
       },
       {
         path: "base",

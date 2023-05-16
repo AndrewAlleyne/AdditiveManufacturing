@@ -1,6 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { WarningAlertModule } from "./../../components/warning-alert/warning-alert.module";
+import { WarningAlertComponent } from "./../../components/warning-alert/warning-alert.component";
+import { CombinedViewModule } from "./combined-view/combined-view/combined-view";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import {
   AvatarModule,
@@ -12,18 +15,20 @@ import {
   NavModule,
   ProgressModule,
   TableModule,
-  TabsModule
-} from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
-import { ChartjsModule } from '@coreui/angular-chartjs';
+  TabsModule,
+} from "@coreui/angular";
+import { IconModule } from "@coreui/icons-angular";
+import { ChartjsModule } from "@coreui/angular-chartjs";
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardRoutingModule } from "./dashboard-routing.module";
+import { DashboardComponent } from "./dashboard.component";
 
-import { WidgetsModule } from '../widgets/widgets.module';
+import { WidgetsModule } from "../widgets/widgets.module";
 
-import { PlotlyDataModule } from '../../plotly-data/plotly-data.module'
-import { PlotlyDataComponent } from 'src/app/plotly-data/plotly-data.component';
+import { PlotlyDataModule } from "../../plotly-data/plotly-data.module";
+import { ChartComponent } from "src/app/components/chart/chart.component";
+import { TableComponent } from "src/app/components/table/table.component";
+import { CombinedViewComponent } from "./combined-view/combined-view/combined-view.component";
 
 @NgModule({
   imports: [
@@ -44,13 +49,11 @@ import { PlotlyDataComponent } from 'src/app/plotly-data/plotly-data.component';
     AvatarModule,
     TableModule,
     WidgetsModule,
-    PlotlyDataModule
+    PlotlyDataModule,
+    CombinedViewModule,
   ],
-  declarations: [
-    DashboardComponent,
-  ],
-  exports: [
-  ]
+
+  declarations: [DashboardComponent],
+  exports: [],
 })
-export class DashboardModule {
-}
+export class DashboardModule {}

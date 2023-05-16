@@ -1,9 +1,6 @@
+import { AssetInfoRoutingModule } from "./views/asset-info/asset-info.routing";
 import { NgModule } from "@angular/core";
-import {
-  HashLocationStrategy,
-  LocationStrategy,
-  PathLocationStrategy,
-} from "@angular/common";
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { BrowserModule, Title } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -71,7 +68,9 @@ import { DispatchManagementComponent } from "./views/dispatch-management/dispatc
 import { PurchasingComponent } from "./views/purchasing/purchasing.component";
 import { InventoryControlComponent } from "./views/inventory-control/inventory-control.component";
 import { PartsInventoryManagementComponent } from "./views/parts-inventory-management/parts-inventory-management.component";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
+import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
+import { RtTableComponent } from "./components/rt-table/rt-table.component";
 
 //Removes horizontal scrollbars
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -111,6 +110,7 @@ const APP_CONTAINERS = [
     PurchasingComponent,
     InventoryControlComponent,
     PartsInventoryManagementComponent,
+    AssetInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +141,7 @@ const APP_CONTAINERS = [
     CardModule,
     FormsModule,
     HttpClientModule,
+    AssetInfoRoutingModule,
   ],
   providers: [
     {
