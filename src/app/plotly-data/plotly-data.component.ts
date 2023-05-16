@@ -1,7 +1,21 @@
 import { Component, HostListener } from "@angular/core";
-import { PlotlyService } from "angular-plotly.js";
-import { FormBuilder } from "@angular/forms";
+import { PlotlyService } from "../api/plotly.service";
+import {
+  FormBuilder,
+  FormGroup,
+  AbstractControl,
+  Validators,
+} from "@angular/forms";
 import { cilArrowRight } from "@coreui/icons";
+import { redraw } from "plotly.js-dist-min";
+import { WebSocketSubject } from "rxjs/webSocket";
+
+interface Control {
+  [key: string]: [boolean];
+}
+interface Object {
+  [key: string]: [""];
+}
 
 type PieChart = {
   data: {
@@ -38,12 +52,7 @@ export class PlotlyDataComponent {
   //Local storage stores the data
   itemList: any[] = [];
 
-  btnCheckGroup = this.formBuilder.group({
-    option1: [],
-    option2: [],
-    option3: [],
-    option4: [],
-  });
+  btnCheckGroup!: FormGroup;
 
   //Show graphs
   graphView: boolean = false;
@@ -53,7 +62,6 @@ export class PlotlyDataComponent {
   //Filtered Items
   filteredItems!: any[];
   performSearch() {
-
     return this.filteredItems.filter(
       (item) => item.layout && item.layout.graphTitle === this.searchQuery
     );
@@ -77,12 +85,15 @@ export class PlotlyDataComponent {
   //Icons
   iconsList: any = { cilArrowRight };
 
-  constructor(
-    private plotlyService: PlotlyService,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(public fb: FormBuilder, private plotlyService: PlotlyService) {
     // super();
   }
+
+  header: string[] = [];
+  controlNames: string[] = [];
+
+  excelData: any[] = [];
+  private socket$?: WebSocketSubject<any>;
 
   ngOnInit() {
     //If local storage has a graph object then get it and set the variables to true
@@ -92,7 +103,50 @@ export class PlotlyDataComponent {
       this.itemList = [...this.itemList, ...JSON.parse(userGraph)];
       this.filteredItems = this.itemList;
     }
+
+    this.plotlyService.getHeader().subscribe(
+      (response) => {
+        console.log(response);
+
+        this.header = [...this.header, ...response];
+
+        const control: Control = {};
+        for (const names of response) {
+          control[names] = [false];
+          this.controlNames.push(names);
+        }
+
+        // update form group with dynamic controls
+        this.btnCheckGroup = this.fb.group(control);
+      },
+      (error) => {
+        throw new Error("Header response failed. ");
+      }
+    );
+
+    // this.socket$ = new WebSocketSubject("ws://localhost:8080/data");
+    // this.socket$.subscribe(
+    //   (message) => console.log("Received message:", message),
+    //   (error) => console.error("Socket error:", error),
+    //   () => console.warn("WebSocket connection closed")
+    // );
+
+    const eventSource = new EventSource("http://localhost:8080/data");
+
+    eventSource.addEventListener("message", (event: MessageEvent) => {
+      let data: any[] = JSON.parse(event.data);
+      // Transform the data.
+      const hyphenArray = data.map((item) => {
+        return item === "" ? "-" : item;
+      });
+
+      // this.excelData = [...this.excelData, ...hyphenArray];
+      this.excelData = [...hyphenArray];
+      console.log(this.excelData, "Data");
+    });
   }
+
+  headerObject: any = {};
 
   // Options bar values
   // TODO Revise function
@@ -102,12 +156,13 @@ export class PlotlyDataComponent {
     const newGroupValue = { ...groupValue, [`${controlName}`]: !prevValue };
     this.btnCheckGroup.setValue(newGroupValue);
     console.log(newGroupValue);
+    this.headerObject = Object.values(newGroupValue);
   }
 
   // Sticky scroll options bar
   stickyPosition = "0px";
   private debounceTimeout: number = 0;
-  @HostListener("window:scroll", [])
+  // @HostListener("window:scroll", [])
   onWindowScroll() {
     // If debounceTimeout is not null, clear the previous timeout
     if (this.debounceTimeout) {
@@ -268,6 +323,5 @@ export class PlotlyDataComponent {
   }
 
   //Filter out the chart views based on recieved API data
-  changeView(event: any) {
-  }
+  changeView(event: any) {}
 }

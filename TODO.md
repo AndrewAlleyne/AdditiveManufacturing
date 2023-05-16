@@ -101,3 +101,14 @@ Functions need to be implemented.
 - [ ] User wants to login into different accounts so that they can see different views based on what they're interested in.
   - [ ] d
 - [ ] Animations for plots
+
+
+
+
+
+-- Anoop discussion
+Generate 2 screens
+  Dashboard 
+  Asset Model Information
+
+

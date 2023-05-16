@@ -1,5 +1,6 @@
 <ng-container
-  *ngIf="graphView; then anotherContent; else noContent"></ng-container>
+  *ngIf="graphView; then anotherContent; else noContent"
+></ng-container>
 
 <ng-container *ngIf="itemList.length > 0; then someContent"></ng-container>
 
@@ -16,7 +17,8 @@
               color="primary"
               title="start"
               cButton
-              (click)="showGraphView()">
+              (click)="showGraphView()"
+            >
               Start
               <svg [cIcon]="iconsList.cilArrowRight" size="xs"></svg>
             </button>
@@ -29,7 +31,8 @@
               rounded
               title="dashboaord"
               src="../../assets/img/avatars/dashboaord.svg"
-              width="200px" />
+              width="200px"
+            />
           </c-col>
         </c-row>
       </c-card>
@@ -57,7 +60,8 @@
                       position: 'relative',
                       width: '100%',
                       height: '100%'
-                    }"></plotly-plot>
+                    }"
+                  ></plotly-plot>
                 </c-card-body>
               </c-card>
             </c-col>
@@ -69,16 +73,18 @@
     <c-col>
       <c-card class="sticky" [ngStyle]="{ top: stickyPosition }">
         <c-card-body>
-          <c-form-check [switch]="true">
+          <c-form-check *ngFor="let head of header" [switch]="true">
             <input
+              [disabled]="!fb"
               title="option1"
               cFormCheckInput
               type="checkbox"
-              (click)="setValue('option1')" />
-            <label cFormCheckLabel>Option 1</label>
+              (click)="setValue(head)"
+            />
+            <label cFormCheckLabel>{{ head }}</label>
           </c-form-check>
 
-          <c-form-check [switch]="true">
+          <!-- <c-form-check [switch]="true">
             <input
               title="option2"
               cFormCheckInput
@@ -103,7 +109,7 @@
               (click)="setValue('option4')"
               type="checkbox" />
             <label cFormCheckLabel>Option 4</label>
-          </c-form-check>
+          </c-form-check> -->
         </c-card-body>
       </c-card>
     </c-col>
@@ -114,7 +120,11 @@
       <c-col>
         <c-card>
           <c-card-body>
-            <data-table></data-table>
+            <data-table
+              [data]="header"
+              [headerObjects]="headerObject"
+              [tableData]="excelData"
+            ></data-table>
           </c-card-body>
         </c-card>
       </c-col>
@@ -135,7 +145,8 @@
                   class="btn btn-transparent"
                   cButton
                   cDropdownToggle
-                  split>
+                  split
+                >
                   Chart View
                 </button>
                 <ul cDropdownMenu (click)="changeView($event)">
@@ -175,7 +186,8 @@
               cFormControl
               placeholder="Search graphs ..."
               [(ngModel)]="searchQuery"
-              (input)="performSearch()" />
+              (input)="performSearch()"
+            />
             <button cButton id="w" color="light">Search</button>
           </c-input-group>
         </div>

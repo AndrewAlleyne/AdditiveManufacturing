@@ -1,29 +1,45 @@
-<table class="table">
-  <thead>
+<div class="table-responsive">
+  <table class="table w-100 overflow-">
     <tr>
-      <th scope="col">P1</th>
-      <th scope="col">P2</th>
-      <th scope="col">P3</th>
-      <th scope="col">P4</th>
+      <th
+        *ngFor="let d of data; let i = index"
+        scope="col"
+        [style.display]="i >= tableData.length ? 'none' : 'table-cell'"
+      >
+        <span *ngIf="headerObjects[i]">
+          {{ d }}
+        </span>
+      </th>
+
+      <!-- <th *ngFor="let key of Object.keys(headerObject)">
+      
+      </th> -->
     </tr>
-  </thead>
-  <tbody>
+
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <ng-container>
+        <!-- Table data should never exceed table headers -->
+        <td *ngFor="let d of tableData; let i = index">
+          {{ d }}
+        </td>
+      </ng-container>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+
+    <!-- <tr>
+        <ng-container *ngFor="let d of tableData; let i = index">
+          <td
+            scope="col"
+            [style.display]="
+              i >= tableData.length || !d ? 'none' : 'table-cell'
+            "
+          >
+            <span *ngIf="headerObjects[i]">
+              {{ d }}
+            </span>
+          </td>
+        </ng-container>
+      </tr> -->
+  </table>
+  <br />
+  <!--  -->
+</div>
