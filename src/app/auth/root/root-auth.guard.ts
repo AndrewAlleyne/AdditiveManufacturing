@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "../auth.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class RootAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
@@ -23,13 +23,18 @@ export class RootAuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    //Verify user access
+    let localUser = window.localStorage.getItem("user");
+    localUser = JSON.stringify(localUser);
 
-    let isUserLoggedIn = this.authService.isLoggedIn;
-    
+    //Verify user access
+    let isUserLoggedIn = this.authService.isLoggedIn || localUser !== null;
+
     if (isUserLoggedIn) {
+      console.log("hit");
+      this.router.navigateByUrl("http://localhost:4200/dashboard");
       return true;
     }
-    return this.router.navigate(['login']);
+
+    return false;
   }
 }

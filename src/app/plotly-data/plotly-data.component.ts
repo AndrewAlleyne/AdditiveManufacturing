@@ -7,7 +7,6 @@ import {
   Validators,
 } from "@angular/forms";
 import { cilArrowRight } from "@coreui/icons";
-import { redraw } from "plotly.js-dist-min";
 import { WebSocketSubject } from "rxjs/webSocket";
 
 interface Control {

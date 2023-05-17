@@ -12,8 +12,17 @@ export class AuthService {
 
   constructor(private userService: UserServiceService) {}
 
+  ngOnInit() {
+    if (window.localStorage.getItem("user")) {
+      console.log("Loading");
+      this.isLoggedIn = true;
+    }
+  }
+
   //User clicks login
   auth(userLoginInfo: Required<IUserLogin>) {
+    console.log("I am called here");
+
     /*  Get user credentials and permissions from database
      
     const userCred = this.userService.getUserCredentials();

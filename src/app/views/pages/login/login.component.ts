@@ -17,11 +17,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  // FIX
   ngOnInit(): void {
     if (window.localStorage.getItem("user")) {
       this.authService.isLoggedIn = true;
       this.router.navigate(["/dashboard"]);
     }
+    console.log("Login.ts is causing this");
   }
 
   // Checks credentials to allow or deny user access

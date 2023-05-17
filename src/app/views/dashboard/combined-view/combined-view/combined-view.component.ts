@@ -1,4 +1,10 @@
-import { Component } from "@angular/core";
+import {
+  AfterViewChecked,
+  Component,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from "@angular/core";
 import { UntypedFormBuilder } from "@angular/forms";
 
 @Component({
@@ -6,7 +12,9 @@ import { UntypedFormBuilder } from "@angular/forms";
   templateUrl: "./combined-view.component.html",
   styleUrls: ["./combined-view.component.scss"],
 })
-export class CombinedViewComponent {
+export class CombinedViewComponent implements AfterViewChecked {
+  frozenScroll = false;
+
   constructor(private fb: UntypedFormBuilder) {}
 
   // View group conditions
@@ -20,10 +28,18 @@ export class CombinedViewComponent {
     checkbox2: [false],
   });
 
+  @HostListener("scroll", ["$event.target"])
+  onTableScroll(container: HTMLElement) {
+    // Check if the user manually scrolled the table
+    this.frozenScroll =
+      container.scrollTop !== container.scrollHeight - container.clientHeight;
+
+    console.log("scrollings");
+  }
+
   //Set the values of the view check group
   setValue(controlName: string) {
     const prevValue = this.btnCheckGroup.get(controlName)?.value;
-    console.log(controlName, prevValue);
 
     const groupValue = this.btnCheckGroup.getRawValue();
 
@@ -35,6 +51,21 @@ export class CombinedViewComponent {
       this.condition1 = val;
     } else if (controlName === "checkbox2") {
       this.condition2 = val;
+    }
+  }
+
+  @ViewChild("tableRef") tableRef!: any;
+
+  ngAfterViewChecked() {
+    if (!this.frozenScroll) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom() {
+    if (this.tableRef && this.tableRef.nativeElement) {
+      const tableElement = this.tableRef.nativeElement;
+      tableElement.scrollTop = tableElement.scrollHeight;
     }
   }
 }

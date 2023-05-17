@@ -12,6 +12,7 @@ import { RootAuthGuard } from "./auth/root/root-auth.guard";
 import { AuthService } from "./auth/auth.service";
 import { SettingsComponent } from "./views/preferences/settings.component";
 import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
+import { LoginGuardGuard } from "./guards/login-guard.guard";
 
 const routes: Routes = [
   {
@@ -25,9 +26,15 @@ const routes: Routes = [
     data: {
       title: "Home",
     },
-    canActivate: [RootAuthGuard],
     canActivateChild: [AuthGuard],
     children: [
+      {
+        path: "asset",
+        component: AssetInfoComponent,
+        data: {
+          title: "Asset Information",
+        },
+      },
       {
         path: "dashboard",
         data: {},
@@ -51,13 +58,7 @@ const routes: Routes = [
           ),
         // component: SettingsComponent,
       },
-      {
-        path: "asset",
-        component: AssetInfoComponent,
-        data: {
-          title: "Asset Information",
-        },
-      },
+
       {
         path: "base",
         loadChildren: () =>
@@ -122,6 +123,7 @@ const routes: Routes = [
     data: {
       title: "Login Page",
     },
+    // canActivate: [LoginGuardGuard],
   },
   {
     path: "show-credentials",

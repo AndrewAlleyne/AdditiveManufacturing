@@ -1,1 +1,16 @@
-<p>rt-table works!</p>
+<table #tableRef cTable class="table table-fixed-height">
+  <thead>
+    <tr>
+      <th scope="col">Product ID</th>
+      <th scope="col">Tool Wear</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of realTimeData">
+      <td>{{ data["Product ID"] }}</td>
+      <td>
+        {{ data["Tool wear [min]"] }}
+      </td>
+    </tr>
+  </tbody>
+</table>

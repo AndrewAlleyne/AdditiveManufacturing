@@ -6,7 +6,8 @@
           title="checkbox1"
           class="btn-check"
           formControlName="checkbox1"
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           for="checkbox1"
           (click)="setValue('checkbox1')"
@@ -20,7 +21,8 @@
           title="checkbox2"
           class="btn-check"
           formControlName="checkbox2"
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           for="checkbox2"
           (click)="setValue('checkbox2')"
@@ -54,9 +56,13 @@
   </c-col>
 
   <c-col [md]="4">
-    <c-card-body>
-      <app-rt-table> </app-rt-table>
-    </c-card-body>
+    <c-card>
+      <c-card-body>
+        <div #tableRef class="table table-fixed-height">
+          <app-rt-table> </app-rt-table>
+        </div>
+      </c-card-body>
+    </c-card>
   </c-col>
 </c-row>
 

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, catchError } from "rxjs";
+import { throwError } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -11,11 +12,11 @@ export class PlotlyService {
 
   constructor(private http: HttpClient) {}
 
-  getData(): Observable<any> {
-    return this.http.get(`${this.URL}/data`);
-  }
-
   getHeader(): Observable<any> {
-    return this.http.get(`${this.URL}/header`);
+    return this.http.get(`${this.URL}/header`).pipe(
+      catchError((error: any) => {
+        return throwError(() => new Error("An error occurred:", error));
+      })
+    );
   }
 }
