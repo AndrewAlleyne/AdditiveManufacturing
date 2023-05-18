@@ -1,3 +1,161 @@
-<p>asset-info works!</p>
+<c-row [gutter]="{ gy: 3 }">
+  <c-col xs="12" md="3">
+    <c-card style="max-width: 200px">
+      <c-card-body>
+        <div style="max-width: 100%; height: auto">
+          <img
+            title="some image"
+            cImg
+            style="object-fit: cover; width: 100%; height: 100%"
+            rounded
+            src="../../../assets/img/avatars/1.jpg"
+            thumbnail
+            class="img-fluid" />
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
 
-<a routerLink="../views/asset-info">Go to Component</a>
+  <c-col xs="12" md="9">
+    <c-card>
+      <c-card-body>
+        <div>
+          <label for="name">Name:</label>
+          <select
+            id="name"
+            aria-label="Default select example"
+            cSelect
+            class="mb-3">
+            <option>Please choose an option</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div>
+          <label for="identifier">Identifier:</label>
+          <select
+            id="identifiert"
+            aria-label="Default select example"
+            cSelect
+            class="mb-3">
+            <option>Please choose an option</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: flex-end">
+          <button
+            (click)="generateTableData()"
+            cButton
+            color="success"
+            shape="rounded-0">
+            Generate
+          </button>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col>
+    <c-card>
+      <c-card-body>
+        <c-nav variant="tabs">
+          <a
+            [cTabContent]="tabContent"
+            [active]="true"
+            [routerLink]
+            [tabPaneIdx]="0"
+            cNavLink
+            >Realtime</a
+          >
+          <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
+            >Historical
+          </a>
+        </c-nav>
+        <c-tab-content #tabContent="cTabContent">
+          <c-tab-pane class="p-3"> Contains chart information </c-tab-pane>
+          <c-tab-pane class="p-3">
+            <!-- Build a custom component for this  -->
+            <c-row>
+              <div class="col-lg-3 col-sm-6">
+                <label for="startDate">From</label>
+                <input id="startDate" class="form-control" type="date" />
+                <span id="startDateSelected"></span>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <label for="endDate">To</label>
+                <input id="endDate" class="form-control" type="date" />
+                <span id="endDateSelected"></span>
+              </div>
+            </c-row>
+            <!-- Build a custom component for this  -->
+            <c-row>
+              <c-col xs="5">
+                <label for="identifier">Data:</label>
+                <select
+                  id="identifier"
+                  aria-label="Default select example"
+                  cSelect
+                  class="mb-3">
+                  <option>Please choose an option</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </c-col>
+            </c-row>
+            <c-row>
+              <c-col>
+                <table cTable>
+                  <caption>
+                    List of users
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Heading</th>
+                      <th scIdenope="col">Heading</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div style="display: flex; justify-content: flex-end">
+                  <button
+                    (click)="downloadCSV()"
+                    cButton
+                    color="success"
+                    shape="rounded-0">
+                    Download CSV
+                  </button>
+                </div>
+              </c-col>
+            </c-row>
+          </c-tab-pane>
+        </c-tab-content>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

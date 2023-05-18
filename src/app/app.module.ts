@@ -41,6 +41,7 @@ import {
   ProgressModule,
   SharedModule,
   SidebarModule,
+  TableModule,
   TabsModule,
   UtilitiesModule,
 } from "@coreui/angular";
@@ -142,6 +143,8 @@ const APP_CONTAINERS = [
     FormsModule,
     HttpClientModule,
     AssetInfoRoutingModule,
+    TableModule,
+    UtilitiesModule,
   ],
   providers: [
     {
