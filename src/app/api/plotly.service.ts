@@ -6,7 +6,7 @@ import { throwError } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class PlotlyService {
+export class PlotlyDataService {
   // Service consumes Backend rt data for plotly
   private URL = "http://localhost:8080";
 
@@ -14,6 +14,14 @@ export class PlotlyService {
 
   getHeader(): Observable<any> {
     return this.http.get(`${this.URL}/header`).pipe(
+      catchError((error: any) => {
+        return throwError(() => new Error("An error occurred:", error));
+      })
+    );
+  }
+
+  getGraph(): Observable<any> {
+    return this.http.get(`${this.URL}/graph`).pipe(
       catchError((error: any) => {
         return throwError(() => new Error("An error occurred:", error));
       })

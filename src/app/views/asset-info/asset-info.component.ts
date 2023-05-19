@@ -1,4 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+
+import * as PlotlyJS from "plotly.js-dist-min";
+import { PlotlyModule, PlotlyService } from "angular-plotly.js";
+import { PlotlyDataService } from "src/app/api/plotly.service";
+PlotlyModule.plotlyjs = PlotlyJS;
 
 @Component({
   selector: "app-asset-info",
@@ -6,6 +13,128 @@ import { Component } from "@angular/core";
   styleUrls: ["./asset-info.component.scss"],
 })
 export class AssetInfoComponent {
+  searchForm!: FormGroup;
+  modelIdentifier!: FormGroup;
+
+  filteredList: string[] = [];
+  addedToList: string[] = [];
+
+  plotly_x: number[] = [];
+  plotly_y: number[] = [];
+
+  //Plotly data
+  data: any[] = [];
+
+  layout: any = {
+    autosize: true,
+    graphTitle: "Donut Pie Chart",
+    margin: { t: 0, b: 0, l: 0, r: 0 },
+    showlegend: true,
+    legend: {
+      x: 0,
+      y: -0.2,
+      yanchor: "bottom",
+    },
+  };
+
+  graph!: any;
+  constructor(
+    private searchBarFormBuilder: FormBuilder,
+    private modelIdentifierFormBuilder: FormBuilder,
+    private plotlyService: PlotlyService,
+    private plotlyAPI: PlotlyDataService
+  ) {}
+
+  @ViewChild("graphDiv", { static: false }) graphDiv!: HTMLDivElement;
+  ngOnInit() {
+    this.modelIdentifier = this.modelIdentifierFormBuilder.group({
+      modelName: this.modelIdentifierFormBuilder.control(""),
+      identifierName: this.modelIdentifierFormBuilder.control(""),
+    });
+
+    //Off canvas search bar
+    this.searchForm = this.searchBarFormBuilder.group({
+      searchDataStream: [""],
+    });
+
+    this.searchForm.controls["searchDataStream"].valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((searchTerm: string) => {
+        this.filteredList = this.listGroup.filter((item) =>
+          item.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+  }
+
+  onOptionSubmit() {
+    console.log(this.modelIdentifier.value);
+  }
+  //Demo list group
+
+  listGroup: string[] = ["M14860", "L47187", "M14865"];
+
+  filterListGroup() {
+    this.searchForm.valueChanges.subscribe((value) => {
+      console.log("Form value:", value);
+    });
+  }
+
+  addItem(item: string) {
+    console.log(item);
+    // Add item to the addedToList array
+    this.addedToList.unshift(item);
+
+    // Remove item from the filteredList array
+    const elementIdx = this.filteredList.findIndex((thing) => thing === item);
+    if (elementIdx !== -1) {
+      this.filteredList.splice(elementIdx, 1);
+      this.listGroup.splice(elementIdx, 1);
+    }
+
+    const eventSource = new EventSource("http://localhost:8080/graph");
+
+    //Check if the data source being passed in matches the name within the API
+    eventSource.addEventListener("message", (response: MessageEvent) => {
+      let data: any = JSON.parse(response.data);
+      //  Transform the data.
+      this.plotly_x = [...this.plotly_x, ...[data.x]];
+      this.plotly_y = [...this.plotly_y, ...[data.y]];
+
+      data: (this.data = [
+        {
+          x: this.plotly_x,
+          y: this.plotly_y,
+          type: data.type,
+        },
+      ]),
+        console.log(this.data);
+    });
+
+    console.log(this.filteredList);
+  }
+
+  removeItem(item: string) {
+    console.log(item);
+
+    // Remove item from the addedToList array
+    this.addedToList = this.addedToList.filter((thing) => thing !== item);
+
+    // Add item back to the filteredList array
+    this.filteredList.unshift(item);
+    this.listGroup.unshift(item);
+
+    console.log(this.filteredList);
+  }
+
+  onFormSubmit() {
+    // Bring added to list into the view using plotly.
+    console.log("Submitted form data", this.addedToList);
+  }
+
+  ngAfterViewInit() {
+    // Plotly.newPlot(this.graphDiv, data, layout);
+  }
+
   // Generates Table data from the selected parameters.
   generateTableData() {
     console.log("Generating some data using the form controller.");

@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { PlotlyService } from "src/app/api/plotly.service";
+import { PlotlyDataService } from "src/app/api/plotly.service";
 
 @Component({
   selector: "app-rt-table",
@@ -15,7 +15,7 @@ import { PlotlyService } from "src/app/api/plotly.service";
   styleUrls: ["./rt-table.component.scss"],
 })
 export class RtTableComponent implements OnInit {
-  constructor(private plotlyService: PlotlyService) {}
+  constructor(private plotlyService: PlotlyDataService) {}
 
   //Store real time data as it comes in
   realTimeData: any[] = [];
@@ -47,7 +47,6 @@ export class RtTableComponent implements OnInit {
     // Check if the user manually scrolled the table
     this.frozenScroll =
       container.scrollTop !== container.scrollHeight - container.clientHeight;
-
   }
 
   getObjectKeys(obj: any): string[] {

@@ -1,5 +1,3 @@
-import { WarningAlertModule } from "./../../components/warning-alert/warning-alert.module";
-import { WarningAlertComponent } from "./../../components/warning-alert/warning-alert.component";
 import { CombinedViewModule } from "./combined-view/combined-view/combined-view";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";

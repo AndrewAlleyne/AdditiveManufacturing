@@ -38,6 +38,7 @@ import {
   HeaderModule,
   ListGroupModule,
   NavModule,
+  OffcanvasModule,
   ProgressModule,
   SharedModule,
   SidebarModule,
@@ -72,6 +73,7 @@ import { PartsInventoryManagementComponent } from "./views/parts-inventory-manag
 import { HttpClientModule } from "@angular/common/http";
 import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
 import { RtTableComponent } from "./components/rt-table/rt-table.component";
+import { PlotlyModule } from "angular-plotly.js";
 
 //Removes horizontal scrollbars
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -128,6 +130,7 @@ const APP_CONTAINERS = [
     PerfectScrollbarModule,
     NavModule,
     ButtonModule,
+    PlotlyModule,
     FormModule,
     UtilitiesModule,
     ButtonGroupModule,
@@ -145,6 +148,7 @@ const APP_CONTAINERS = [
     AssetInfoRoutingModule,
     TableModule,
     UtilitiesModule,
+    OffcanvasModule,
   ],
   providers: [
     {
