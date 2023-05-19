@@ -1,1 +1,124 @@
-<plotly-do></plotly-do>
+<div>
+  <c-row>
+    <c-col [md]="4">
+      <div class="d-flex justify-content-end mb-2">
+        <button (click)="addGraphView()" cButton>Trace</button>
+      </div>
+      <c-card>
+        <c-card-body>
+          <c-accordion>
+            <c-accordion-item
+              *ngFor="let item of accordionItems"
+              #item0="cAccordionItem"
+              [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item0.toggleItem()"
+                  [collapsed]="!item0.visible"
+                  cAccordionButton>
+                  Accordion item #0
+                </button>
+              </ng-template>
+              <!-- ACCORDIAN TEMPLATE -->
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  <form [formGroup]="variableForm">
+                    <div class="d-flex justify-content-end mb-2">
+                      <button (click)="toggleLiveDemo()" cButton>
+                        {{ buttonText }}
+                      </button>
+                    </div>
+
+                    <!-- Dummy list group  -->
+
+                    <!-- Dummy list group  -->
+
+                    <ul cListGroup>
+                      <!-- Generate data based on the graph types received. -->
+                      <li
+                        *ngFor="let graph of graphTypes"
+                        class="list-group-item">
+                        <div
+                          class="d-flex flex-column justify-content-between align-items-baseline">
+                          <div class="pr-10">
+                            <label for="variable_x">{{ graph.name }}</label>
+                          </div>
+                          <select
+                            id="variable_x"
+                            aria-label="Large select example"
+                            cSelect
+                            class="mb-3">
+                            <option>Choose data</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+              </ng-template>
+            </c-accordion-item>
+          </c-accordion>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</div>
+
+<c-modal
+  id="liveDemoModal"
+  [visible]="visible"
+  (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Select Trace Type</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+
+  <!-- Grpah selection menu -->
+  <c-modal-body class="d-flex flex-row justify-content-between">
+    <div>
+      <h6 class="text-medium-emphasis">Basic Graphs</h6>
+    </div>
+
+    <c-button-group aria-label="Basic example" role="group">
+      <button
+        (click)="changeButtonText($event)"
+        cButton
+        color="dark"
+        variant="outline">
+        <svg
+          [cIcon]="icons.cilChartPie"
+          cCardImg="top"
+          size="3xl"
+          title="List Icon"></svg>
+        <div>Pie Chart</div>
+      </button>
+      <button cButton color="dark" variant="outline">
+        <svg
+          [cIcon]="icons.cilBarChart"
+          cCardImg="top"
+          size="3xl"
+          title="List Icon"></svg>
+        <div>Bar Chart</div>
+      </button>
+      <button cButton color="dark" variant="outline">
+        <svg
+          [cIcon]="icons.cilChartLine"
+          cCardImg="top"
+          size="3xl"
+          title="List Icon"></svg>
+        <div>Line</div>
+      </button>
+      <button cButton color="dark" variant="outline">
+        <svg
+          [cIcon]="icons.cilHeatChart"
+          cCardImg="top"
+          size="3xl"
+          title="List Icon"></svg>
+        <div>Heat Map</div>
+      </button>
+    </c-button-group>
+  </c-modal-body>
+</c-modal>

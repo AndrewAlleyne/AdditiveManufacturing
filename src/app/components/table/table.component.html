@@ -2,61 +2,28 @@
   <table class="table">
     <thead>
       <tr class="stay">
-        <th scope="col">Model</th>
-        <th scope="col">Wear</th>
-        <th scope="col">Target</th>
+        <th scope="col">{{ data[1] }}</th>
+        <th scope="col">{{ data[7] }}</th>
+        <th scope="col">{{ data[8] }}</th>
+        <th scope="col">{{ data[3] }}</th>
+        <th scope="col">{{ data[4] }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>@twitter</td>
-        <td>Thornton</td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>@twitter</td>
-        <td>Thornton</td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>@twitter</td>
-        <td>Thornton</td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>@twitter</td>
-        <td>Thornton</td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>@twitter</td>
-        <td>Thornton</td>
+      <tr *ngFor="let d of realTimeData">
+        <td>{{ d["Product ID"] }}</td>
+        <td>
+          {{ d["Tool wear [min]"] }}
+        </td>
+        <td>
+          {{ d["Target"] }}
+        </td>
+        <td>
+          {{ d["Air temperature [K]"] }}
+        </td>
+        <td>
+          {{ d["Process temperature [K]"] }}
+        </td>
       </tr>
     </tbody>
   </table>

@@ -22,8 +22,6 @@ export class RtTableComponent implements OnInit {
   header: any[] = [];
 
   ngOnInit() {
-    const eventSource = new EventSource("http://localhost:8080/data");
-
     this.plotlyService.getHeader().subscribe({
       next: (response) => {
         this.header = [...this.header, ...response];
@@ -32,6 +30,7 @@ export class RtTableComponent implements OnInit {
         throw new Error("Header response failed. ");
       },
     });
+    const eventSource = new EventSource("http://localhost:8080/data");
 
     eventSource.addEventListener("message", (event: MessageEvent) => {
       let data: any[] = JSON.parse(event.data);

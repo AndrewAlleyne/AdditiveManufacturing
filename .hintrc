@@ -8,6 +8,13 @@
       {
         "duplicate-id-aria": "off"
       }
-    ]
+    ],
+    "axe/name-role-value": [
+      "default",
+      {
+        "button-name": "off"
+      }
+    ],
+    "button-type": "off"
   }
 }

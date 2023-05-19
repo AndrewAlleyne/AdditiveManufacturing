@@ -1,69 +1,103 @@
-<c-card class="mb-4">
-  <c-card-body>
-    <div [formGroup]="btnCheckGroup">
-      <c-button-group variant="outline">
-        <input
-          title="checkbox1"
-          class="btn-check"
-          formControlName="checkbox1"
-          type="checkbox"
-        />
-        <label
-          for="checkbox1"
-          (click)="setValue('checkbox1')"
-          cButton
-          cFormCheckLabel
-          variant="ghost"
-          >Table</label
-        >
-
-        <input
-          title="checkbox2"
-          class="btn-check"
-          formControlName="checkbox2"
-          type="checkbox"
-        />
-        <label
-          for="checkbox2"
-          (click)="setValue('checkbox2')"
-          cButton
-          cFormCheckLabel
-          variant="ghost"
-          >Chart</label
-        >
-      </c-button-group>
-    </div>
-  </c-card-body>
-</c-card>
-
-<ng-template #dataView>
-  <data-table></data-table>
-</ng-template>
-<ng-template #chartView>
-  <data-chart> </data-chart>
-</ng-template>
-
-<c-row class="mb-4">
-  <c-col [md]="8" class="mb-4">
-    <c-card>
-      <c-card-body *ngIf="condition1 || condition2">
-        <div class="table table-fixed-height">
-          <ng-container *ngIf="condition1; then dataView"></ng-container>
-          <ng-container *ngIf="condition2; then chartView"></ng-container>
-        </div>
-      </c-card-body>
-    </c-card>
-  </c-col>
-
-  <c-col [md]="4">
-    <c-card>
+<c-row [gutter]="{}">
+  <c-col>
+    <c-card class="mb-4">
       <c-card-body>
-        <div #tableRef class="table table-fixed-height">
-          <app-rt-table> </app-rt-table>
-        </div>
+        <c-nav variant="tabs">
+          <a
+            [active]="true"
+            [cTabContent]="tabContent"
+            [routerLink]
+            [tabPaneIdx]="0"
+            cNavLink
+            >Incoming Data</a
+          >
+          <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
+            >Chart</a
+          >
+        </c-nav>
+        <c-tab-content #tabContent="cTabContent">
+          <c-tab-pane class="p-3 table table-fixed-height">
+            <data-table [data]="tableData"></data-table>
+          </c-tab-pane>
+          <c-tab-pane class="p-3">
+            <data-chart> </data-chart>
+          </c-tab-pane>
+        </c-tab-content>
+
+        <!-- <div [formGroup]="btnCheckGroup">
+          <c-button-group variant="outline">
+            <input
+              title="checkbox1"
+              class="btn-check"
+              formControlName="checkbox1"
+              type="checkbox" />
+            <label
+              for="checkbox1"
+              (click)="setValue('checkbox1')"
+              cButton
+              cFormCheckLabel
+              variant="ghost"
+              >Table</label
+            >
+
+            <input
+              title="checkbox2"
+              class="btn-check"
+              formControlName="checkbox2"
+              type="checkbox" />
+            <label
+              for="checkbox2"
+              (click)="setValue('checkbox2')"
+              cButton
+              cFormCheckLabel
+              variant="ghost"
+              >Chart</label
+            >
+          </c-button-group>
+        </div> -->
+
+        <!-- <c-col>
+          <c-card>
+            <c-card-body *ngIf="condition1 || condition2">
+              <div class="table table-fixed-height">
+                <ng-container *ngIf="condition1; then dataView"></ng-container>
+                <ng-container *ngIf="condition2; then chartView"></ng-container>
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-col> -->
       </c-card-body>
     </c-card>
   </c-col>
+
+  <c-row>
+    <c-col [md]="4">
+      <c-card>
+        <c-card-body>
+          <div #tableRef class="table table-fixed-height">
+            <!-- <app-rt-table> </app-rt-table> -->
+            <app-warning-alert [failure]="failures"></app-warning-alert>
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col>
+      <c-card>
+        <c-card-header>
+          <h5>Header</h5>
+        </c-card-header>
+        <c-card-body>
+          <h5 cCardTitle>Model Name</h5>
+          <p cCardText>Print Progress: 75%</p>
+          <p cCardText>Estimated Time Remaining: 1h 20m</p>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
 </c-row>
 
-<app-warning-alert></app-warning-alert>
+<ng-template #dataView> </ng-template>
+<ng-template #chartView> </ng-template>

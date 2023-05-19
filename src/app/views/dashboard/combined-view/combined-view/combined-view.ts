@@ -8,12 +8,15 @@ import {
   CardModule,
   FormModule,
   GridModule,
+  NavModule,
+  TabsModule,
 } from "@coreui/angular";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
 import { WarningAlertModule } from "src/app/components/warning-alert/warning-alert.module";
 import { RTTableComponentModule } from "./../../../../components/rt-table/rt-table.module";
+import { RouterModule } from "@angular/router";
 
 //FIX Theres a reason we label them with component name.Not to confused with third party library names. Fix after demo
 
@@ -32,6 +35,9 @@ import { RTTableComponentModule } from "./../../../../components/rt-table/rt-tab
     ButtonGroupModule,
     CardModule,
     GridModule,
+    NavModule,
+    TabsModule,
+    RouterModule
   ],
   declarations: [CombinedViewComponent],
   exports: [CombinedViewComponent],

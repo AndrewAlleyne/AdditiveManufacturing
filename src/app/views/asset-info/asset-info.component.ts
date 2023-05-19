@@ -7,6 +7,7 @@ import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { PlotlyDataService } from "src/app/api/plotly.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { PlotlyHTMLElement } from "plotly.js-dist-min";
 PlotlyModule.plotlyjs = PlotlyJS;
 
 @Component({
@@ -15,7 +16,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
   styleUrls: ["./asset-info.component.scss"],
 })
 export class AssetInfoComponent {
-  @ViewChild("graphDiv", { static: false }) graphDiv!: HTMLDivElement;
+  @ViewChild("graphDiv", { static: false })
+  graphDiv!: ElementRef;
 
   searchForm!: FormGroup;
   modelIdentifier!: FormGroup;
@@ -28,10 +30,11 @@ export class AssetInfoComponent {
 
   //Plotly data
   data: any[] = [];
+  nextData: any[] = [];
 
   layout: any = {
     autosize: true,
-    graphTitle: "Donut Pie Chart",
+    title: "Donut Pie Chart",
     margin: { t: 0, b: 0, l: 0, r: 0 },
     showlegend: true,
     legend: {
@@ -45,9 +48,11 @@ export class AssetInfoComponent {
   constructor(
     private searchBarFormBuilder: FormBuilder,
     private modelIdentifierFormBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private plotlyService: PlotlyService
   ) {}
 
+  isLoading: boolean = false;
   ngOnInit() {
     this.modelIdentifier = this.modelIdentifierFormBuilder.group({
       modelName: this.modelIdentifierFormBuilder.control(""),
@@ -72,6 +77,7 @@ export class AssetInfoComponent {
   onOptionSubmit() {
     console.log(this.modelIdentifier.value);
 
+    this.isLoading = true;
     this.postData(this.modelIdentifier.value).subscribe({
       next: (response) => {
         console.log(response, "Data posted.");
@@ -85,10 +91,31 @@ export class AssetInfoComponent {
 
   //Stream data from the backend
   streamData() {
-    const eventSource = new EventSource("http://localhost:8080/graph");
+    // const eventSource = new EventSource("http://localhost:8080/line");
+
+    // //Check if the data source being passed in matches the name within the API
+    // eventSource.addEventListener("message", (response: MessageEvent) => {
+    //   let data: any = JSON.parse(response.data);
+
+    //   //  Transform the data.
+    //   this.plotly_x = [...this.plotly_x, ...[data.x]];
+    //   this.plotly_y = [...this.plotly_y, ...[data.y]];
+
+    //   this.data = [
+    //     {
+    //       x: this.plotly_x,
+    //       y: this.plotly_y,
+    //       type: data.type,
+    //     },
+    //   ];
+
+    //   console.log(this.data);
+    // });
+
+    const nextEventSource = new EventSource("http://localhost:8080/scatter");
 
     //Check if the data source being passed in matches the name within the API
-    eventSource.addEventListener("message", (response: MessageEvent) => {
+    nextEventSource.addEventListener("message", (response: MessageEvent) => {
       let data: any = JSON.parse(response.data);
 
       //  Transform the data.
@@ -99,7 +126,8 @@ export class AssetInfoComponent {
         {
           x: this.plotly_x,
           y: this.plotly_y,
-          type: data.type,
+          type: "scatter",
+          mode: "markers",
         },
       ];
 
@@ -170,5 +198,30 @@ export class AssetInfoComponent {
       "Access-Control-Allow-Headers": "Content-Type",
     });
     return this.http.post(url, value, { headers });
+  }
+
+  updateGraph() {
+    const eventSource = new EventSource("http://localhost:8080/scatter");
+
+    //Check if the data source being passed in matches the name within the API
+    eventSource.addEventListener("message", (response: MessageEvent) => {
+      let data: any = JSON.parse(response.data);
+
+      //  Transform the data.
+      this.plotly_x = [...this.plotly_x, ...[data.x]];
+      this.plotly_y = [...this.plotly_y, ...[data.y]];
+
+      this.data = [
+        {
+          x: this.plotly_x,
+          y: this.plotly_y,
+          type: data.type,
+          mode: "markers",
+        },
+      ];
+
+      console.log(this.data);
+    });
+    console.log("Upates happeneing in GRAPH");
   }
 }

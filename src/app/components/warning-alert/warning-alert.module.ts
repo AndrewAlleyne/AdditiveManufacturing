@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { WarningAlertComponent } from "./warning-alert.component";
 import { NgModule } from "@angular/core";
 import {
+  CalloutModule,
   CardModule,
   DropdownModule,
   GridModule,
@@ -25,6 +26,7 @@ import { Router, RouterModule } from "@angular/router";
     ChartjsModule,
     RouterModule,
     CardModule,
+    CalloutModule,
   ],
   declarations: [WarningAlertComponent],
   exports: [WarningAlertComponent],

@@ -23,10 +23,20 @@ export class TableComponent {
 
   newItem: string[] = [];
   tableDataLen = this.tableData.length;
+  realTimeData: any[] = [];
 
   ngOnInit() {
     this.newItem.push(...this.tableData);
     // console.log("New item ", this.newItem);
+
+    const eventSource = new EventSource("http://localhost:8080/data");
+
+    eventSource.addEventListener("message", (event: MessageEvent) => {
+      let data: any[] = JSON.parse(event.data);
+      // Transform the data.
+      this.realTimeData.push(data);
+      console.log(this.realTimeData);
+    });
   }
 
   arrayFromLength(length: number): number[] {

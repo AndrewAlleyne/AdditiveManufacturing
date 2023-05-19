@@ -1,46 +1,51 @@
-<c-row [gutter]="{ gy: 3 }">
-  <c-col xs="12" md="3">
-    <c-card style="max-width: 200px">
+<c-row [gutter]="{ gy: 2 }">
+  <c-col md="3">
+    <c-card style="height: auto">
       <c-card-body>
-        <div style="max-width: 100%; height: auto">
-          <img
-            title="some image"
-            cImg
-            style="object-fit: cover; width: 100%; height: 100%"
-            rounded
-            src="../../../assets/img/avatars/1.jpg"
-            thumbnail
-            class="img-fluid" />
-        </div>
+        <img
+          title="some image"
+          cImg
+          style="object-fit: cover; width: 100%; height: 100%"
+          rounded
+          src="../../../assets/img/avatars/1.jpg"
+          thumbnail
+          class="img-fluid" />
       </c-card-body>
     </c-card>
   </c-col>
 
-  <c-col>
+  <c-col md="9">
     <c-card>
       <c-card-body>
         <form
           [formGroup]="modelIdentifier"
           [gutter]="{ gy: 2, gx: 3 }"
           (ngSubmit)="onOptionSubmit()">
-          <c-col [md]="6">
-            <label for="name">Name:</label>
-            <select cSelect id="name" class="mb-3" formControlName="modelName">
-              <option disabled selected value>Select an option</option>
-              <option value="L47187">M14860</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </c-col>
-          <c-col [md]="6">
-            <label for="identifier">Identifier:</label>
-            <select cSelect id="identifier" formControlName="identifierName">
-              <option disabled selected value>Select an option</option>
-              <option value="L47187">L47187</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </c-col>
+          <c-row>
+            <div class="col-md-6">
+              <label for="name">Name:</label>
+              <select
+                cSelect
+                id="name"
+                class="mb-3"
+                formControlName="modelName">
+                <option disabled selected value>Select an option</option>
+                <option value="M14860">M14860</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="identifier">Identifier:</label>
+              <select cSelect id="identifier" formControlName="identifierName">
+                <option disabled selected value>Select an option</option>
+                <option value="L47187">L47187</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </c-row>
+
           <c-col [xs]="12">
             <button cButton type="submit">Submit</button>
           </c-col>
@@ -73,18 +78,28 @@
 
             <c-card class="col-md-4">
               <c-card-body>
-                <div *ngFor="let d of data">
-                  <plotly-plot
-                    [data]="[d]"
-                    [config]="{ editable: true }"
-                    [layout]="layout"
-                    [useResizeHandler]="true"
-                    [style]="{
-                      position: 'relative',
-                      width: '100%',
-                      height: '100%'
-                    }">
-                  </plotly-plot>
+                <div *ngIf="isLoading" cPlaceholderAnimation="wave">
+                  <span cCol="6" cPlaceholder></span>
+                  <span cPlaceholder class="w-75"></span>
+                  <span cPlaceholder style="width: 30%"></span>
+                </div>
+
+                <div>
+                  <div>
+                    <plotly-plot
+                      #graphDiv
+                      [data]="data"
+                      [config]="{ editable: true }"
+                      [layout]="layout"
+                      [useResizeHandler]="true"
+                      [style]="{
+                        position: 'relative',
+                        width: '100%',
+                        height: '100%'
+                      }"
+                      [updateOnDataChange]="true">
+                    </plotly-plot>
+                  </div>
                 </div>
 
                 <c-offcanvas placement="end" id="OffcanvasStart">

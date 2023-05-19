@@ -1,17 +1,29 @@
-<c-row [gutter]="4" [xs]="1">
+<c-row [gutter]="2" [xs]="1">
   <c-col>
-    <c-card>
+    <!-- <c-card *ngFor="let failedDevice of failure" class="mb-4">
       <c-card-header>
-        <a routerLink="/asset" cNavLink cCardLink> ASSET NAME</a>
+        <a routerLink="/asset" cNavLink cCardLink>
+          {{ failedDevice.ProductID }}</a
+        >
       </c-card-header>
       <c-card-body>
-        <h5 cCardTitle>Asset Name</h5>
+        <h6 cCardTitle>Asset Name</h6>
         <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
-        <p cCardText>Maintenance Action:</p>
+        <p cCardText>Maintenance Action: {{ failedDevice.Failure }}</p>
       </c-card-body>
       <c-card-footer>
         <small class="text-medium-emphasis">Last updated 3 mins ago</small>
       </c-card-footer>
-    </c-card>
+    </c-card> -->
+    <div *ngFor="let failedDevice of failure">
+      <c-callout color="danger">
+        <a routerLink="/asset" cNavLink cCardLink>
+          {{ failedDevice.ProductID }}</a
+        >
+        <h6 cCardTitle>Asset Name</h6>
+        <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
+        <p cCardText>Maintenance Action: {{ failedDevice.Failure }}</p>
+      </c-callout>
+    </div>
   </c-col>
 </c-row>

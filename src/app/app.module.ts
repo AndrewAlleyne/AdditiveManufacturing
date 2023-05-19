@@ -39,6 +39,7 @@ import {
   ListGroupModule,
   NavModule,
   OffcanvasModule,
+  PlaceholderModule,
   ProgressModule,
   SharedModule,
   SidebarModule,
@@ -149,6 +150,9 @@ const APP_CONTAINERS = [
     TableModule,
     UtilitiesModule,
     OffcanvasModule,
+    PlaceholderModule,
+    GridModule,
+    UtilitiesModule,
   ],
   providers: [
     {

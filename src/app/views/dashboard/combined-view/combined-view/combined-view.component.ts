@@ -4,18 +4,26 @@ import {
   ViewChild,
   ElementRef,
   HostListener,
+  OnInit,
 } from "@angular/core";
 import { UntypedFormBuilder } from "@angular/forms";
+import { PlotlyDataService } from "src/app/api/plotly.service";
 
 @Component({
   selector: "combined-view",
   templateUrl: "./combined-view.component.html",
   styleUrls: ["./combined-view.component.scss"],
 })
-export class CombinedViewComponent implements AfterViewChecked {
+export class CombinedViewComponent implements AfterViewChecked, OnInit {
   frozenScroll = false;
+  tableData: any[] = [];
+  failures: any[] = [];
+  deviceFailure: any = {};
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private plotlyAPI: PlotlyDataService
+  ) {}
 
   // View group conditions
   condition1: boolean = true;
@@ -27,6 +35,44 @@ export class CombinedViewComponent implements AfterViewChecked {
     checkbox1: [true],
     checkbox2: [false],
   });
+
+  realTimeData: any[] = [];
+  //
+  ngOnInit() {
+    this.plotlyAPI.getHeader().subscribe({
+      next: (response) => {
+        this.tableData = [...this.tableData, ...response];
+
+        console.log(response);
+      },
+      error: (error) => {
+        throw new Error("Header response failed. ");
+      },
+    });
+
+    const eventSource = new EventSource("http://localhost:8080/data");
+
+    eventSource.addEventListener("message", (event: MessageEvent) => {
+      let data: any = JSON.parse(event.data);
+
+      console.log(data);
+      if (data.Target === "1.0") {
+        this.deviceFailure = {
+          ProductID: data["Product ID"],
+          ToolWear: data["Tool wear [min]"],
+          Target: data["Target"],
+          Failure: data["Due Maintainance ( Preventive ) "],
+        };
+
+        this.failures.push(this.deviceFailure);
+
+        console.log("Failure present ", this.failures);
+      }
+      // Transform the data.
+      this.realTimeData.push(data);
+      console.log(this.realTimeData);
+    });
+  }
 
   @HostListener("scroll", ["$event.target"])
   onTableScroll(container: HTMLElement) {

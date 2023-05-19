@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { cilChartPie, cilArrowRight } from "@coreui/icons";
 import { Router, ActivatedRoute } from "@angular/router";
 
@@ -10,6 +10,12 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class WarningAlertComponent {
   icons = { cilChartPie, cilArrowRight };
 
+  @Input() failure: any[] = [];
+
+
+  ngOnInit() { 
+    
+  }
   colors = [
     { color: "primary", textColor: "primary" },
     { color: "secondary", textColor: "secondary" },

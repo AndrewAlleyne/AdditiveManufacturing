@@ -1,6 +1,7 @@
 .table-fixed-height {
-  max-height: 300px; 
+  max-height: 300px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 body {
