@@ -5,6 +5,8 @@ import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import * as PlotlyJS from "plotly.js-dist-min";
 import { PlotlyModule, PlotlyService } from "angular-plotly.js";
 import { PlotlyDataService } from "src/app/api/plotly.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
 PlotlyModule.plotlyjs = PlotlyJS;
 
 @Component({
@@ -13,6 +15,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
   styleUrls: ["./asset-info.component.scss"],
 })
 export class AssetInfoComponent {
+  @ViewChild("graphDiv", { static: false }) graphDiv!: HTMLDivElement;
+
   searchForm!: FormGroup;
   modelIdentifier!: FormGroup;
 
@@ -37,15 +41,13 @@ export class AssetInfoComponent {
     },
   };
 
-  graph!: any;
+  graph: any[] = [];
   constructor(
     private searchBarFormBuilder: FormBuilder,
     private modelIdentifierFormBuilder: FormBuilder,
-    private plotlyService: PlotlyService,
-    private plotlyAPI: PlotlyDataService
+    private http: HttpClient
   ) {}
 
-  @ViewChild("graphDiv", { static: false }) graphDiv!: HTMLDivElement;
   ngOnInit() {
     this.modelIdentifier = this.modelIdentifierFormBuilder.group({
       modelName: this.modelIdentifierFormBuilder.control(""),
@@ -66,11 +68,45 @@ export class AssetInfoComponent {
       });
   }
 
+  // Makes post request to backend. Starts real time streaming
   onOptionSubmit() {
     console.log(this.modelIdentifier.value);
+
+    this.postData(this.modelIdentifier.value).subscribe({
+      next: (response) => {
+        console.log(response, "Data posted.");
+        this.streamData();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  //Stream data from the backend
+  streamData() {
+    const eventSource = new EventSource("http://localhost:8080/graph");
+
+    //Check if the data source being passed in matches the name within the API
+    eventSource.addEventListener("message", (response: MessageEvent) => {
+      let data: any = JSON.parse(response.data);
+
+      //  Transform the data.
+      this.plotly_x = [...this.plotly_x, ...[data.x]];
+      this.plotly_y = [...this.plotly_y, ...[data.y]];
+
+      this.data = [
+        {
+          x: this.plotly_x,
+          y: this.plotly_y,
+          type: data.type,
+        },
+      ];
+
+      console.log(this.data);
+    });
   }
   //Demo list group
-
   listGroup: string[] = ["M14860", "L47187", "M14865"];
 
   filterListGroup() {
@@ -90,27 +126,6 @@ export class AssetInfoComponent {
       this.filteredList.splice(elementIdx, 1);
       this.listGroup.splice(elementIdx, 1);
     }
-
-    const eventSource = new EventSource("http://localhost:8080/graph");
-
-    //Check if the data source being passed in matches the name within the API
-    eventSource.addEventListener("message", (response: MessageEvent) => {
-      let data: any = JSON.parse(response.data);
-      //  Transform the data.
-      this.plotly_x = [...this.plotly_x, ...[data.x]];
-      this.plotly_y = [...this.plotly_y, ...[data.y]];
-
-      data: (this.data = [
-        {
-          x: this.plotly_x,
-          y: this.plotly_y,
-          type: data.type,
-        },
-      ]),
-        console.log(this.data);
-    });
-
-    console.log(this.filteredList);
   }
 
   removeItem(item: string) {
@@ -143,5 +158,17 @@ export class AssetInfoComponent {
   // Generates a CSV based on the table data.
   downloadCSV() {
     console.log("Generate a CSV using the data from the table.");
+  }
+
+  postData(value: any): Observable<any> {
+    const url = "http://localhost:8080/model";
+
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST",
+      "Access-Control-Allow-Headers": "Content-Type",
+    });
+    return this.http.post(url, value, { headers });
   }
 }

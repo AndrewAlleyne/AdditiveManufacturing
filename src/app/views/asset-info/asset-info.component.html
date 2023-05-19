@@ -27,7 +27,7 @@
             <label for="name">Name:</label>
             <select cSelect id="name" class="mb-3" formControlName="modelName">
               <option disabled selected value>Select an option</option>
-              <option value="1">One</option>
+              <option value="L47187">M14860</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
@@ -36,7 +36,7 @@
             <label for="identifier">Identifier:</label>
             <select cSelect id="identifier" formControlName="identifierName">
               <option disabled selected value>Select an option</option>
-              <option value="1">One</option>
+              <option value="L47187">L47187</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
@@ -73,9 +73,9 @@
 
             <c-card class="col-md-4">
               <c-card-body>
-                <div *ngIf="addedToList.length != 0">
+                <div *ngFor="let d of data">
                   <plotly-plot
-                    [data]="data"
+                    [data]="[d]"
                     [config]="{ editable: true }"
                     [layout]="layout"
                     [useResizeHandler]="true"
