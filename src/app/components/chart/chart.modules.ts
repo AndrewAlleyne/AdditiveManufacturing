@@ -15,7 +15,7 @@ import {
   SharedModule,
   TooltipModule,
 } from "@coreui/angular";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IconModule } from "@coreui/icons-angular";
 import { RouterModule } from "@angular/router";
 
@@ -27,6 +27,7 @@ import { RouterModule } from "@angular/router";
     ModalModule,
     ButtonModule,
     FormModule,
+    FormsModule,
     TooltipModule,
     GridModule,
     ReactiveFormsModule,

@@ -50,9 +50,7 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
       },
     });
 
-    const eventSource = new EventSource("http://localhost:8080/data");
-
-    eventSource.addEventListener("message", (event: MessageEvent) => {
+    this.plotlyAPI.getStreamData().subscribe((event: MessageEvent) => {
       let data: any = JSON.parse(event.data);
 
       console.log(data);

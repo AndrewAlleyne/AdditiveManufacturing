@@ -49,7 +49,8 @@ export class AssetInfoComponent {
     private searchBarFormBuilder: FormBuilder,
     private modelIdentifierFormBuilder: FormBuilder,
     private http: HttpClient,
-    private plotlyService: PlotlyService
+    private plotlyService: PlotlyService,
+    private plotlyAPI: PlotlyDataService
   ) {}
 
   isLoading: boolean = false;
@@ -92,25 +93,6 @@ export class AssetInfoComponent {
   //Stream data from the backend
   streamData() {
     // const eventSource = new EventSource("http://localhost:8080/line");
-
-    // //Check if the data source being passed in matches the name within the API
-    // eventSource.addEventListener("message", (response: MessageEvent) => {
-    //   let data: any = JSON.parse(response.data);
-
-    //   //  Transform the data.
-    //   this.plotly_x = [...this.plotly_x, ...[data.x]];
-    //   this.plotly_y = [...this.plotly_y, ...[data.y]];
-
-    //   this.data = [
-    //     {
-    //       x: this.plotly_x,
-    //       y: this.plotly_y,
-    //       type: data.type,
-    //     },
-    //   ];
-
-    //   console.log(this.data);
-    // });
 
     const nextEventSource = new EventSource("http://localhost:8080/scatter");
 

@@ -5,6 +5,7 @@ import {
   PipeTransform,
   SimpleChanges,
 } from "@angular/core";
+import { PlotlyDataService } from "src/app/api/plotly.service";
 
 interface Object {
   [key: string]: any;
@@ -25,13 +26,12 @@ export class TableComponent {
   tableDataLen = this.tableData.length;
   realTimeData: any[] = [];
 
+  constructor(private plotlyAPI: PlotlyDataService) {}
   ngOnInit() {
     this.newItem.push(...this.tableData);
     // console.log("New item ", this.newItem);
 
-    const eventSource = new EventSource("http://localhost:8080/data");
-
-    eventSource.addEventListener("message", (event: MessageEvent) => {
+    this.plotlyAPI.getStreamData().subscribe((event: MessageEvent) => {
       let data: any[] = JSON.parse(event.data);
       // Transform the data.
       this.realTimeData.push(data);
@@ -57,7 +57,7 @@ export class TableComponent {
       // Map over each item in the original array
       this.items = this.newItem.map((item) => {
         // Create a new object with only the specified properties
-        const newObj: Object = {};
+        const newObj: Object = {}; 
         properties.forEach((prop, idx) => {
           newObj[prop] = item[idx];
         });
@@ -65,7 +65,6 @@ export class TableComponent {
       });
     }
     this.items = [...this.items, ...this.newItem];
-    // console.log(this.items);
   }
 
   getObjectKeys(obj: any): string[] {

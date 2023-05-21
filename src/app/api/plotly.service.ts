@@ -9,7 +9,7 @@ import { throwError } from "rxjs";
 export class PlotlyDataService {
   // Service consumes Backend rt data for plotly
   private URL = "http://localhost:8080";
-
+  eventSource!: EventSource;
   constructor(private http: HttpClient) {}
 
   getHeader(): Observable<any> {
@@ -28,4 +28,18 @@ export class PlotlyDataService {
     );
   }
 
+  getStreamData(): Observable<MessageEvent> {
+    if (!this.eventSource) {
+      this.eventSource = new EventSource("http://localhost:8080/data");
+    }
+    return new Observable((observer) => {
+      this.eventSource.addEventListener("message", (event: MessageEvent) => {
+        observer.next(event);
+      });
+
+      return () => {
+        this.eventSource.close();
+      };
+    });
+  }
 }

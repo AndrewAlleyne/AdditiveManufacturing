@@ -47,40 +47,88 @@ export class ChartComponent {
       y: "",
     },
     {
-      name: "PieChart",
+      name: "Pie Chart",
       x: "",
       y: "",
     },
     {
-      name: "Bar",
+      name: "Bar Chart",
       x: "",
       y: "",
     },
     {
-      name: "HeatMap",
+      name: "Heat Map",
       x: "",
       y: "",
       z: "",
     },
   ];
+  type: any[] = [];
+
+  index!: number;
+
+  accordionItems: {
+    name?: string;
+    index: number;
+    visible: boolean;
+    graph: any;
+    isEditing?: boolean;
+  }[] = [];
+
+  editableButtonText!: string;
+  isEditing: boolean = false;
+
+  editButtonText(accordianIndex: number) {
+    //Find the accordian
+    let accordianObject = this.accordionItems[accordianIndex];
+    accordianObject.isEditing = true;
+  }
+
+  saveButtonText(accordianIndex: number) {
+    //Find the accordian
+    let accordianObject = this.accordionItems[accordianIndex];
+    accordianObject.isEditing = false;
+  }
 
   changeButtonText(event: any) {
-    console.log(event.target.outerText);
     let graph = event.target.outerText;
-    this.changeTraceOptions(graph);
-    this.buttonText = graph;
-    this.visible = !this.visible;
 
-    //Search and populate respective table
+    this.type.push(
+      this.graphTypes.find((typeOfGraph) => typeOfGraph.name === graph)
+    );
+
+    this.changeTraceOptions(graph);
+    this.visible = !this.visible;
   }
 
   changeTraceOptions(graph: string) {
-    console.log("called");
+    if (this.accordionItems && this.accordionItems.length > this.index) {
+      // Find the right graph template.
+      let graphTemplate = this.graphTypes.find((item) => {
+        return item.name === graph;
+      });
+
+      // Get the accordion object using the index.
+      let accordionGraphObject = this.accordionItems[this.index];
+
+      if (accordionGraphObject) {
+        accordionGraphObject.graph = graphTemplate;
+      }
+    }
   }
 
-  accordionItems: { index: number; visible: boolean }[] = [];
+  newGraph(event: any, index: number) {
+    this.visible = !this.visible;
+    this.index = index;
 
-  toggleLiveDemo() {
+    //Find the graph using the index.
+    if (this.accordionItems && this.accordionItems.length > 0) {
+      let accordian = this.accordionItems[index];
+      this.buttonText = accordian.graph.name;
+    }
+  }
+
+  toggleLiveDemo(event: any) {
     this.visible = !this.visible;
   }
 
@@ -88,9 +136,26 @@ export class ChartComponent {
     this.visible = event;
   }
 
+  //Adds an accordian object
+
   addGraphView() {
-    const newIndex = this.accordionItems.length;
-    const newItem = { index: newIndex, visible: false };
+    const newIndex: number = this.accordionItems.length;
+    let label: string = "Trace-" + newIndex;
+    this.editableButtonText = label;
+
+    const newItem = {
+      name: label,
+      index: newIndex,
+      visible: false,
+      graph: null,
+      isEditing: false,
+    };
+
     this.accordionItems.push(newItem);
+  }
+
+  getObjectKeys(graph: any) {
+    console.log(this.accordionItems);
+    return Object.keys(graph).filter((item) => item !== "name");
   }
 }

@@ -1,12 +1,12 @@
-# TODO\_
+# TODO
 
 - [x] Separation of concern. User credentials, Roles, Access Policy should all be separate.
 - [x] User form Validation
-- [ ] Depending on user ROLE(ADMIN, FINANCE, ETC...) show basic menu. MASTER user has everything
-- [ ] Filter by permissions based on which group the particular user belongs to
-- [ ] Real time notifications
-- [ ] Account window
-- [ ] Weather widget
+- [x] Depending on user ROLE(ADMIN, FINANCE, ETC...) show basic menu. MASTER user has everything
+- [x] Filter by permissions based on which group the particular user belongs to
+- [x] Real time notifications
+- [x] Account window
+- [x] Weather widget
 - [ ] Build Backend API
 - [ ] Personal graph selection
 - [ ] Gather data on sensor information
@@ -102,13 +102,15 @@ Functions need to be implemented.
   - [ ] d
 - [ ] Animations for plots
 
-
-
-
-
 -- Anoop discussion
 Generate 2 screens
-  Dashboard 
-  Asset Model Information
+Dashboard
+Asset Model Information
 
+---
 
+-On refresh or revisit a new Server instance is started for that user. We need to devise a way to continue the server stream while also storing the previous data.
+
+Data flow for real time messages.
+
+New data --> Persistence storage --> Data Retrieval (You dont want to load all the data but just some within a range ) --> Client Request(Triggered based on time series) --> Hafnle Client request server side. (Applies Data Retrieval Methodology)

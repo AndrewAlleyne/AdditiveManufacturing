@@ -1,68 +1,133 @@
 <div>
   <c-row>
-    <c-col [md]="4">
+    <c-col [xs]="12" [md]="4">
       <div class="d-flex justify-content-end mb-2">
         <button (click)="addGraphView()" cButton>Trace</button>
       </div>
-      <c-card>
-        <c-card-body>
-          <c-accordion>
-            <c-accordion-item
-              *ngFor="let item of accordionItems"
-              #item0="cAccordionItem"
-              [visible]="false">
-              <ng-template cTemplateId="accordionHeaderTemplate">
-                <button
-                  (click)="item0.toggleItem()"
-                  [collapsed]="!item0.visible"
-                  cAccordionButton>
-                  Accordion item #0
-                </button>
-              </ng-template>
-              <!-- ACCORDIAN TEMPLATE -->
-              <ng-template cTemplateId="accordionBodyTemplate">
-                <div class="accordion-body">
-                  <form [formGroup]="variableForm">
-                    <div class="d-flex justify-content-end mb-2">
-                      <button (click)="toggleLiveDemo()" cButton>
-                        {{ buttonText }}
-                      </button>
-                    </div>
 
-                    <!-- Dummy list group  -->
+      <div *ngIf="accordionItems.length > 0; else noAccordian">
+        <c-card>
+          <c-card-body>
+            <c-accordion>
+              <c-accordion-item
+                *ngFor="let item of accordionItems; let i = index"
+                #item0="cAccordionItem"
+                [visible]="false">
+                <ng-template cTemplateId="accordionHeaderTemplate">
+                  <button
+                    (dblclick)="editButtonText(i)"
+                    (click)="item0.toggleItem()"
+                    [collapsed]="!item0.visible"
+                    cAccordionButton>
+                    {{ item.name }}
+                  </button>
+                  <input
+                    *ngIf="item.isEditing"
+                    type="text"
+                    [(ngModel)]="item.name"
+                    (blur)="saveButtonText(i)"
+                    (keyup.enter)="saveButtonText(i)" />
+                </ng-template>
+                <!-- ACCORDIAN TEMPLATE -->
+                <ng-template cTemplateId="accordionBodyTemplate">
+                  <div class="accordion-body">
+                    <form [formGroup]="variableForm">
+                      <div class="d-flex justify-content-end mb-2">
+                        <button (click)="newGraph($event, i)" cButton>
+                          {{ item.graph ? item.graph.name : "Trace Type" }}
+                        </button>
+                      </div>
 
-                    <!-- Dummy list group  -->
+                      <!-- Dummy list group  -->
 
-                    <ul cListGroup>
-                      <!-- Generate data based on the graph types received. -->
-                      <li
-                        *ngFor="let graph of graphTypes"
-                        class="list-group-item">
-                        <div
-                          class="d-flex flex-column justify-content-between align-items-baseline">
-                          <div class="pr-10">
-                            <label for="variable_x">{{ graph.name }}</label>
+                      <!-- Dummy list group  -->
+
+                      <ul cListGroup>
+                        <!-- Generate data based on the graph types received. -->
+                        <li class="list-group-item">
+                          <div
+                            *ngIf="item.graph !== null; else defaultGraph"
+                            [ngClass]="{
+                              items: item.graph === null ? true : false
+                            }">
+                            <!-- Content to display if the condition is true -->
+                            <div
+                              #graphSelected
+                              *ngFor="let graph of getObjectKeys(item.graph)"
+                              class="d-flex flex-column justify-content-between align-items-baseline">
+                              <div class="pr-10">
+                                <label for="{{ graph }}">{{ graph }}</label>
+                              </div>
+                              <select
+                                id="{{ graph }}"
+                                aria-label="Large select example"
+                                cSelect
+                                class="mb-3">
+                                <option>Choose data</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                            </div>
                           </div>
-                          <select
-                            id="variable_x"
-                            aria-label="Large select example"
-                            cSelect
-                            class="mb-3">
-                            <option>Choose data</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                      </li>
-                    </ul>
-                  </form>
-                </div>
-              </ng-template>
-            </c-accordion-item>
-          </c-accordion>
-        </c-card-body>
-      </c-card>
+                          <ng-template class="text-align-center" #defaultGraph>
+                            <h4>Select a trace</h4>
+                          </ng-template>
+                        </li>
+                      </ul>
+                    </form>
+                  </div>
+                </ng-template>
+              </c-accordion-item>
+            </c-accordion>
+          </c-card-body>
+        </c-card>
+      </div>
+
+      <ng-template class="text-align-center" #noAccordian>
+        <c-card [color]="'light'">
+          <c-card-body>
+            <h4>Select a trace</h4>
+          </c-card-body>
+        </c-card>
+      </ng-template>
+    </c-col>
+
+    <c-col [md]="8">
+      <c-row>
+        <c-col>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            aperiam vitae, a recusandae ipsam quia quibusdam soluta atque, amet
+            qui quo. Repellendus nihil necessitatibus modi magnam corporis eius.
+            Impedit, eveniet.
+          </h1>
+        </c-col>
+        <c-col>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            aperiam vitae, a recusandae ipsam quia quibusdam soluta atque, amet
+            qui quo. Repellendus nihil necessitatibus modi magnam corporis eius.
+            Impedit, eveniet.
+          </h1>
+        </c-col>
+        <c-col>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            aperiam vitae, a recusandae ipsam quia quibusdam soluta atque, amet
+            qui quo. Repellendus nihil necessitatibus modi magnam corporis eius.
+            Impedit, eveniet.
+          </h1>
+        </c-col>
+        <c-col>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            aperiam vitae, a recusandae ipsam quia quibusdam soluta atque, amet
+            qui quo. Repellendus nihil necessitatibus modi magnam corporis eius.
+            Impedit, eveniet.
+          </h1>
+        </c-col>
+      </c-row>
     </c-col>
   </c-row>
 </div>
@@ -73,7 +138,7 @@
   (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
     <h5 cModalTitle>Select Trace Type</h5>
-    <button (click)="toggleLiveDemo()" cButtonClose></button>
+    <button (click)="toggleLiveDemo($event)" cButtonClose></button>
   </c-modal-header>
 
   <!-- Grpah selection menu -->
@@ -95,7 +160,11 @@
           title="List Icon"></svg>
         <div>Pie Chart</div>
       </button>
-      <button cButton color="dark" variant="outline">
+      <button
+        cButton
+        color="dark"
+        variant="outline"
+        (click)="changeButtonText($event)">
         <svg
           [cIcon]="icons.cilBarChart"
           cCardImg="top"
@@ -103,7 +172,11 @@
           title="List Icon"></svg>
         <div>Bar Chart</div>
       </button>
-      <button cButton color="dark" variant="outline">
+      <button
+        cButton
+        color="dark"
+        variant="outline"
+        (click)="changeButtonText($event)">
         <svg
           [cIcon]="icons.cilChartLine"
           cCardImg="top"
@@ -111,7 +184,11 @@
           title="List Icon"></svg>
         <div>Line</div>
       </button>
-      <button cButton color="dark" variant="outline">
+      <button
+        cButton
+        color="dark"
+        variant="outline"
+        (click)="changeButtonText($event)">
         <svg
           [cIcon]="icons.cilHeatChart"
           cCardImg="top"
