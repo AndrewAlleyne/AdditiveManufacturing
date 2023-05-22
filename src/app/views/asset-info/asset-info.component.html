@@ -9,7 +9,8 @@
           rounded
           src="../../../assets/img/avatars/1.jpg"
           thumbnail
-          class="img-fluid" />
+          class="img-fluid"
+        />
       </c-card-body>
     </c-card>
   </c-col>
@@ -20,7 +21,8 @@
         <form
           [formGroup]="modelIdentifier"
           [gutter]="{ gy: 2, gx: 3 }"
-          (ngSubmit)="onOptionSubmit()">
+          (ngSubmit)="onOptionSubmit()"
+        >
           <c-row>
             <div class="col-md-6">
               <label for="name">Name:</label>
@@ -28,7 +30,8 @@
                 cSelect
                 id="name"
                 class="mb-3"
-                formControlName="modelName">
+                formControlName="modelName"
+              >
                 <option disabled selected value>Select an option</option>
                 <option value="M14860">M14860</option>
                 <option value="2">Two</option>
@@ -97,7 +100,8 @@
                         width: '100%',
                         height: '100%'
                       }"
-                      [updateOnDataChange]="true">
+                      [updateOnDataChange]="true"
+                    >
                     </plotly-plot>
                   </div>
                 </div>
@@ -120,7 +124,8 @@
                       backdrop="static"
                       class="text-reset"
                       cOffcanvasToggle="OffcanvasStart"
-                      aria-label="Close"></button>
+                      aria-label="Close"
+                    ></button>
                   </c-offcanvas-header>
 
                   <c-offcanvas-body class=" ">
@@ -130,12 +135,14 @@
                         <a
                           [routerLink]
                           cListGroupItem
-                          class="d-flex justify-content-between align-items-center">
+                          class="d-flex justify-content-between align-items-center"
+                        >
                           {{ item }}
                           <button
                             type="button"
                             (click)="removeItem(item)"
-                            cButton>
+                            cButton
+                          >
                             Remove
                           </button></a
                         >
@@ -148,7 +155,8 @@
                     <form
                       cForm
                       [formGroup]="searchForm"
-                      (ngSubmit)="onFormSubmit()">
+                      (ngSubmit)="onFormSubmit()"
+                    >
                       <div class="mb-3">
                         <label cLabel for="searchDataStream"></label>
                         <input
@@ -156,7 +164,8 @@
                           formControlName="searchDataStream"
                           id="searchDataStream"
                           placeholder="Search for data stream"
-                          type="text" />
+                          type="text"
+                        />
                       </div>
                       <div class="mb-3"></div>
                       <!-- Search bar results.  -->
@@ -165,12 +174,14 @@
                           <a
                             [routerLink]
                             cListGroupItem
-                            class="d-flex justify-content-between align-items-center">
+                            class="d-flex justify-content-between align-items-center"
+                          >
                             {{ item }}
                             <button
                               type="button"
                               (click)="addItem(item)"
-                              cButton>
+                              cButton
+                            >
                               Add
                             </button></a
                           >
@@ -192,43 +203,57 @@
           <c-tab-pane class="p-3">
             <c-row>
               <!-- Build a custom component for this  -->
-              <c-row>
-                <div class="col-lg-3 col-sm-6">
-                  <label for="startDate">From</label>
-                  <input id="startDate" class="form-control" type="date" />
-                  <span id="startDateSelected"></span>
+              <form [formGroup]="historicalForm" (submit)="generateTableData()">
+                <c-row>
+                  <div class="col-lg-3 col-sm-6">
+                    <label for="startDate">From</label>
+                    <input
+                      formControlName="fromDate"
+                      id="startDate"
+                      class="form-control"
+                      type="date"
+                    />
+                    <span id="startDateSelected"></span>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <label for="endDate">To</label>
+                    <input
+                      formControlName="endDate"
+                      id="endDate"
+                      class="form-control"
+                      type="date"
+                    />
+                    <span id="endDateSelected"></span>
+                  </div>
+                </c-row>
+                <!-- Build a custom component for this  -->
+                <c-row>
+                  <c-col xs="5">
+                    <label for="identifier">Data:</label>
+                    <select
+                      id="identifier"
+                      aria-label="Default select example"
+                      cSelect
+                      class="mb-3"
+                      multiple
+                      formControlName="optionsData"
+                    >
+                      <option>Please choose an option</option>
+                      <option
+                        [value]="tableHead"
+                        *ngFor="let tableHead of header"
+                      >
+                        {{ tableHead }}
+                      </option>
+                    </select>
+                  </c-col>
+                </c-row>
+                <div style="display: flex; justify-content: flex-end">
+                  <button cButton color="success" shape="rounded-0">
+                    Generate
+                  </button>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                  <label for="endDate">To</label>
-                  <input id="endDate" class="form-control" type="date" />
-                  <span id="endDateSelected"></span>
-                </div>
-              </c-row>
-              <!-- Build a custom component for this  -->
-              <c-row>
-                <c-col xs="5">
-                  <label for="identifier">Data:</label>
-                  <select
-                    id="identifier"
-                    aria-label="Default select example"
-                    cSelect
-                    class="mb-3">
-                    <option>Please choose an option</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </c-col>
-              </c-row>
-              <div style="display: flex; justify-content: flex-end">
-                <button
-                  (click)="generateTableData()"
-                  cButton
-                  color="success"
-                  shape="rounded-0">
-                  Generate
-                </button>
-              </div>
+              </form>
             </c-row>
 
             <c-row>
@@ -272,7 +297,8 @@
                     (click)="downloadCSV()"
                     cButton
                     color="success"
-                    shape="rounded-0">
+                    shape="rounded-0"
+                  >
                     Download CSV
                   </button>
                 </div>

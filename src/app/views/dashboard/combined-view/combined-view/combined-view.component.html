@@ -20,7 +20,8 @@
             <data-table [data]="tableData"></data-table>
           </c-tab-pane>
           <c-tab-pane class="p-3">
-            <data-chart> </data-chart>
+            <data-chart [realTimeData]="realTimeData" [options]="header">
+            </data-chart>
           </c-tab-pane>
         </c-tab-content>
 
@@ -82,7 +83,7 @@
       </c-card>
     </c-col>
   </c-row>
-
+  <!-- 
   <c-row>
     <c-col>
       <c-card>
@@ -97,7 +98,8 @@
       </c-card>
     </c-col>
   </c-row>
-</c-row>
+</c-row> -->
 
-<ng-template #dataView> </ng-template>
-<ng-template #chartView> </ng-template>
+  <ng-template #dataView> </ng-template>
+  <ng-template #chartView> </ng-template>
+</c-row>

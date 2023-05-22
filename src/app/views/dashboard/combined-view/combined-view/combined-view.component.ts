@@ -19,6 +19,7 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
   tableData: any[] = [];
   failures: any[] = [];
   deviceFailure: any = {};
+  header: any[] = [];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -42,8 +43,7 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
     this.plotlyAPI.getHeader().subscribe({
       next: (response) => {
         this.tableData = [...this.tableData, ...response];
-
-        console.log(response);
+        this.header = response;
       },
       error: (error) => {
         throw new Error("Header response failed. ");
@@ -53,7 +53,6 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
     this.plotlyAPI.getStreamData().subscribe((event: MessageEvent) => {
       let data: any = JSON.parse(event.data);
 
-      console.log(data);
       if (data.Target === "1.0") {
         this.deviceFailure = {
           ProductID: data["Product ID"],
@@ -63,12 +62,9 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
         };
 
         this.failures.push(this.deviceFailure);
-
-        console.log("Failure present ", this.failures);
       }
       // Transform the data.
       this.realTimeData.push(data);
-      console.log(this.realTimeData);
     });
   }
 
@@ -77,8 +73,6 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
     // Check if the user manually scrolled the table
     this.frozenScroll =
       container.scrollTop !== container.scrollHeight - container.clientHeight;
-
-    console.log("scrollings");
   }
 
   //Set the values of the view check group

@@ -29,13 +29,11 @@ export class TableComponent {
   constructor(private plotlyAPI: PlotlyDataService) {}
   ngOnInit() {
     this.newItem.push(...this.tableData);
-    // console.log("New item ", this.newItem);
 
     this.plotlyAPI.getStreamData().subscribe((event: MessageEvent) => {
       let data: any[] = JSON.parse(event.data);
       // Transform the data.
       this.realTimeData.push(data);
-      console.log(this.realTimeData);
     });
   }
 
@@ -57,7 +55,7 @@ export class TableComponent {
       // Map over each item in the original array
       this.items = this.newItem.map((item) => {
         // Create a new object with only the specified properties
-        const newObj: Object = {}; 
+        const newObj: Object = {};
         properties.forEach((prop, idx) => {
           newObj[prop] = item[idx];
         });

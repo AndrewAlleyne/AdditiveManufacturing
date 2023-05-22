@@ -45,9 +45,7 @@ export class NavigationService {
       (item) => item.name === "Operations & Control"
     );
 
-    console.log("userResource ", userResource);
-    console.log("operationsObj ", operationsObj);
-    console.log("newItems ", newItems);
+   
     if (operationsObj) {
       const children = operationsObj.children?.filter((child) => {
         const hasRole =
@@ -55,7 +53,6 @@ export class NavigationService {
         return hasRole;
       });
 
-      console.log("children ", children);
 
       if (children && children.length > 0) {
         operationsObj.children = children;
@@ -63,9 +60,6 @@ export class NavigationService {
         operationsObj.children = [];
       }
     }
-
-    console.log(newItems);
-
     return newItems;
   }
 

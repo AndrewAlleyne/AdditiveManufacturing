@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ChartComponent } from "./chart.component";
 import { CommonModule } from "@angular/common";
-import { PlotlyComponent } from "angular-plotly.js";
+import { PlotlyComponent, PlotlyModule } from "angular-plotly.js";
 import { PlotlyDataModule } from "src/app/plotly-data/plotly-data.module";
 import {
   AccordionModule,
@@ -37,6 +37,7 @@ import { RouterModule } from "@angular/router";
     ButtonGroupModule,
     AccordionModule,
     SharedModule,
+    PlotlyModule,
   ],
   declarations: [ChartComponent],
   exports: [ChartComponent],

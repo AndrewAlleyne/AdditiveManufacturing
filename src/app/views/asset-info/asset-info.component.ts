@@ -44,16 +44,21 @@ export class AssetInfoComponent {
     },
   };
 
+  historicalForm!: FormGroup;
+
   graph: any[] = [];
   constructor(
     private searchBarFormBuilder: FormBuilder,
     private modelIdentifierFormBuilder: FormBuilder,
     private http: HttpClient,
     private plotlyService: PlotlyService,
-    private plotlyAPI: PlotlyDataService
+    private plotlyAPI: PlotlyDataService,
+    private historicalFormBuilder: FormBuilder
   ) {}
 
   isLoading: boolean = false;
+  header: any[] = [];
+  tableData: any[] = [];
   ngOnInit() {
     this.modelIdentifier = this.modelIdentifierFormBuilder.group({
       modelName: this.modelIdentifierFormBuilder.control(""),
@@ -65,6 +70,35 @@ export class AssetInfoComponent {
       searchDataStream: [""],
     });
 
+    this.historicalForm = this.historicalFormBuilder.group({
+      fromDate: [""],
+      endDate: [""],
+      optionsData: [""],
+    });
+    this.historicalForm.valueChanges.subscribe((value) => {
+      console.log("Form value changed:", value);
+
+      const startDate = value.startDate;
+      const endDate = value.endate;
+
+      // Filter events based on the start and end dates
+      const filteredEvents = this.tableData.filter((event) => {
+        const eventDate = new Date(event.timestamp); // Assuming the timestamp is stored in the 'timestamp' property of the event object
+        const startDateObj = new Date(startDate); // Convert the start date string to a Date object
+        const endDateObj = new Date(endDate); // Convert the end date string to a Date object
+
+        // Extract the date part from the event timestamp
+        const eventDateString = eventDate.toISOString().split("T")[0];
+
+        return (
+          eventDateString >= startDateObj.toISOString().split("T")[0] &&
+          eventDateString <= endDateObj.toISOString().split("T")[0]
+        );
+      });
+
+      console.log(filteredEvents);
+    });
+
     this.searchForm.controls["searchDataStream"].valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((searchTerm: string) => {
@@ -72,6 +106,28 @@ export class AssetInfoComponent {
           item.toLowerCase().includes(searchTerm.toLowerCase())
         );
       });
+
+    this.plotlyAPI.getHeader().subscribe({
+      next: (response) => {
+        this.header = response;
+      },
+      error: (error) => {
+        throw new Error("Header response failed. ");
+      },
+    });
+
+    this.plotlyAPI.getStreamData().subscribe({
+      next: (response) => {
+        this.tableData = [...this.tableData, ...[response]];
+      },
+      error: (error) => {
+        throw new Error("Header response failed. ");
+      },
+    });
+  }
+
+  initalize(event: any) {
+    console.log(event);
   }
 
   // Makes post request to backend. Starts real time streaming
