@@ -20,6 +20,54 @@ export const navItems: INavData[] = [
     ],
   },
   {
+    name: "Asset Info",
+    url: "/asset",
+    iconComponent: { name: "cil-puzzle" },
+    badge: {
+      color: "info",
+      text: "",
+    },
+    roles: [
+      "Admin",
+      "Accounts",
+      "Finance",
+      "Master",
+      "Engineering",
+      "SupplyChainManagement",
+      "SalesAndMarketing",
+    ],
+  },
+  {
+    name: "Additive Manufacturing",
+    url: "/additive-manufacturing",
+    iconComponent: { name: "cil-puzzle" },
+    badge: {
+      color: "info",
+      text: "",
+    },
+    children: [
+      {
+        name: "Powder",
+        url: "/additive-manufacturing/powder",
+        roles: [""],
+      },
+      {
+        name: "Silicone",
+        url: "/additive-manufacturing/silicone",
+        roles: [""],
+      },
+    ],
+    roles: [
+      "Admin",
+      "Accounts",
+      "Finance",
+      "Master",
+      "Engineering",
+      "SupplyChainManagement",
+      "SalesAndMarketing",
+    ],
+  },
+  {
     name: "Operations & Control",
     url: "/ops",
     iconComponent: { name: "cilPuzzle" },

@@ -13,6 +13,8 @@ import { AuthService } from "./auth/auth.service";
 import { SettingsComponent } from "./views/preferences/settings.component";
 import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
 import { LoginGuardGuard } from "./guards/login-guard.guard";
+import { AdditiveManufacturingComponent } from "./views/additive-manufacturing/additive-manufacturing.component";
+import { SpecimenComponent } from "./views/specimen/specimen.component";
 
 const routes: Routes = [
   {
@@ -33,6 +35,13 @@ const routes: Routes = [
         component: AssetInfoComponent,
         data: {
           title: "Asset Information",
+        },
+      },
+      {
+        path: "specimen",
+        component: SpecimenComponent,
+        data: {
+          title: "Specimen",
         },
       },
       {
@@ -57,6 +66,13 @@ const routes: Routes = [
             (m) => m.PreferencesModule
           ),
         // component: SettingsComponent,
+      },
+      {
+        path: "additive-manufacturing",
+        loadChildren: () =>
+          import("./views/additive-manufacturing/additive.module").then(
+            (m) => m.AdditiveManufacturingModule
+          ),
       },
 
       {

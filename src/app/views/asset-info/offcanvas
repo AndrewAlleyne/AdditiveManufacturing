@@ -1,0 +1,89 @@
+  <!-- <c-offcanvas placement="end" id="OffcanvasStart">
+                      <c-offcanvas-header>
+                        <div class="d-flex flex-column">
+                          <div>
+                            <h5 cOffcanvasTitle>
+                              <div>Add a data stream</div>
+                            </h5>
+                          </div>
+                          <div class="cOffcanvasStatus">
+                            Updated 05/19/2023 at 2:43
+                          </div>
+                        </div>
+
+                        <button
+                          cButtonClose
+                          backdrop="static"
+                          class="text-reset"
+                          cOffcanvasToggle="OffcanvasStart"
+                          aria-label="Close"
+                        ></button>
+                      </c-offcanvas-header>
+
+                      <c-offcanvas-body class=" ">
+                        <small>Added data streams</small>
+                        <div cListGroup *ngFor="let item of addedToList">
+                          <div>
+                            <a
+                              [routerLink]
+                              cListGroupItem
+                              class="d-flex justify-content-between align-items-center"
+                            >
+                              {{ item }}
+                              <button
+                                type="button"
+                                (click)="removeItem(item)"
+                                cButton
+                              >
+                                Remove
+                              </button></a
+                            >
+                          </div>
+                        </div>
+                        <hr class="mt-2 mb-3" />
+                        <small>Add more streams</small>
+
+                        <!-- Search bar to filter streams to subscribe to -->
+                        <!-- <form
+                          cForm
+                          [formGroup]="searchForm"
+                          (ngSubmit)="onFormSubmit()"
+                        >
+                          <div class="mb-3">
+                            <label cLabel for="searchDataStream"></label>
+                            <input
+                              cFormControl
+                              formControlName="searchDataStream"
+                              id="searchDataStream"
+                              placeholder="Search for data stream"
+                              type="text"
+                            />
+                          </div>
+                          <div class="mb-3"></div>
+                          <!-- Search bar results.  -->
+                          <div cListGroup *ngFor="let item of filteredList">
+                            <div>
+                              <a
+                                [routerLink]
+                                cListGroupItem
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                {{ item }}
+                                <button
+                                  type="button"
+                                  (click)="addItem(item)"
+                                  cButton
+                                >
+                                  Add
+                                </button></a
+                              >
+                            </div>
+                          </div>
+                          <!-- Search bar results.  -->
+                          <!-- Search bar to filter streams to subscribe to -->
+                          <div class="d-grid gap-2 mt-2">
+                            <button type="submit" cButton color="primary">
+                              Save Change
+                            </button>
+                          </div>
+                        </form> 

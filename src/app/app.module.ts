@@ -37,6 +37,7 @@ import {
   GridModule,
   HeaderModule,
   ListGroupModule,
+  ModalModule,
   NavModule,
   OffcanvasModule,
   PlaceholderModule,
@@ -75,6 +76,10 @@ import { HttpClientModule } from "@angular/common/http";
 import { AssetInfoComponent } from "./views/asset-info/asset-info.component";
 import { RtTableComponent } from "./components/rt-table/rt-table.component";
 import { PlotlyModule } from "angular-plotly.js";
+import { FilteraleTableComponent } from "./components/filterale-table/filterale-table.component";
+import { PredictiveComponent } from "./views/predictive/predictive.component";
+import { AdditiveManufacturingComponent } from "./views/additive-manufacturing/additive-manufacturing.component";
+import { SpecimenComponent } from "./views/specimen/specimen.component";
 
 //Removes horizontal scrollbars
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -115,6 +120,9 @@ const APP_CONTAINERS = [
     InventoryControlComponent,
     PartsInventoryManagementComponent,
     AssetInfoComponent,
+    PredictiveComponent,
+    AdditiveManufacturingComponent,
+    SpecimenComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,6 +161,7 @@ const APP_CONTAINERS = [
     PlaceholderModule,
     GridModule,
     UtilitiesModule,
+    ModalModule,
   ],
   providers: [
     {

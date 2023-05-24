@@ -12,12 +12,16 @@ import {
   GridModule,
   ListGroupModule,
   ModalModule,
+  NavModule,
   SharedModule,
+  TableModule,
+  TabsModule,
   TooltipModule,
 } from "@coreui/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IconModule } from "@coreui/icons-angular";
 import { RouterModule } from "@angular/router";
+import { TableComponentModule } from "../table/table.module";
 
 @NgModule({
   imports: [
@@ -38,6 +42,9 @@ import { RouterModule } from "@angular/router";
     AccordionModule,
     SharedModule,
     PlotlyModule,
+    NavModule,
+    TabsModule,
+    TableComponentModule,
   ],
   declarations: [ChartComponent],
   exports: [ChartComponent],

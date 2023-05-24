@@ -1,0 +1,200 @@
+<c-card>
+  <c-card-body>
+    <c-row>
+      <c-col [md]="6">
+        <form cForm [formGroup]="modelForm">
+          <div class="mb-3">
+            <label cLabel for="assetId">Asset Id </label>
+            <select
+              aria-label="Default select example"
+              cSelect
+              formControlName="assetId"
+            >
+              <option>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="layerId">Layer ID:</label>
+            <select
+              aria-label="Default select example"
+              cSelect
+              formControlName="layerId"
+            >
+              <option>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="jobId">Job ID:</label>
+            <select
+              aria-label="Default select example"
+              cSelect
+              formControlName="jobId"
+            >
+              <option>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </form>
+      </c-col>
+
+      <c-col [md]="8">
+        <c-card>
+          <c-card-body>
+            <div style="position: relative">
+              <plotly-plot
+                [data]="graphData"
+                [layout]="graphLayout"
+                [useResizeHandler]="true"
+                [style]="{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%'
+                }"
+              ></plotly-plot>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col [md]="4">
+        <c-card>
+          <c-card-body> </c-card-body>
+          <c-card-footer class="text-medium-emphasis">
+            <c-button-group aria-label="Basic example" role="group">
+              <button cButton color="primary" (click)="toggleLiveDemo()">
+                +
+              </button>
+
+              <button cButton color="primary" (click)="toggleCloseLiveDemo()">
+                -
+              </button>
+            </c-button-group>
+          </c-card-footer>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+
+<c-modal
+  id="liveDemoModal"
+  [visible]="visible"
+  (visibleChange)="handleLiveDemoChange($event)"
+>
+  <c-modal-header>
+    <h5 cModalTitle>Add Specimen</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form>
+      <c-col>
+        <c-input-group class="mb-3">
+          <span cInputGroupText id="basic-addon1">ID</span>
+          <input
+            aria-describedby="basic-addon1"
+            aria-label="Username"
+            cFormControl
+            formControlName="Id"
+            placeholder="Id"
+          />
+        </c-input-group>
+      </c-col>
+
+      <c-row>
+        <c-col>
+          <c-input-group class="mb-3">
+            <span cInputGroupText id="basic-addon1">X min</span>
+            <input
+              aria-describedby="basic-addon1"
+              aria-label="xmin"
+              cFormControl
+              formControlName="xMin"
+              placeholder="Enter X Min"
+            />
+          </c-input-group>
+        </c-col>
+        <c-col>
+          <c-input-group class="mb-3">
+            <span cInputGroupText id="basic-addon1">X max</span>
+            <input
+              aria-describedby="basic-addon1"
+              aria-label="xMax"
+              cFormControl
+              formControlName="xMax"
+              placeholder="Enter X Max"
+            />
+          </c-input-group>
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col>
+          <c-input-group class="mb-3">
+            <span cInputGroupText id="basic-addon1">Y Min</span>
+            <input
+              aria-describedby="basic-addon1"
+              aria-label="yMin"
+              cFormControl
+              formControlName="yMin"
+              placeholder="Enter Y min"
+            />
+          </c-input-group>
+        </c-col>
+
+        <c-col>
+          <c-input-group class="mb-3">
+            <span cInputGroupText id="basic-addon1">Y Max</span>
+            <input
+              aria-describedby="basic-addon1"
+              aria-label="yMax"
+              cFormControl
+              formControlName="yMax"
+              placeholder="Enter Y Max"
+            />
+          </c-input-group>
+        </c-col>
+      </c-row>
+    </form>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="submitSpecimen()" cButton color="secondary">Add</button>
+  </c-modal-footer>
+</c-modal>
+
+<!-- Close Modal-->
+<c-modal
+  id="liveDemoModal"
+  [visible]="anotherVisible"
+  (visibleChange)="handleCloseLiveDemoChange($event)"
+>
+  <c-modal-header>
+    <h5 cModalTitle>Remove Specimen</h5>
+    <button (click)="toggleCloseLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form>
+      <c-col>
+        <c-input-group class="mb-3">
+          <span cInputGroupText id="basic-addon1">ID</span>
+          <input
+            aria-describedby="basic-addon1"
+            aria-label="Username"
+            cFormControl
+            formControlName="Id"
+            placeholder="Id"
+          />
+        </c-input-group>
+      </c-col>
+    </form>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="removeSpecimen()" cButton color="secondary">Add</button>
+  </c-modal-footer>
+</c-modal>

@@ -95,6 +95,8 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
   @ViewChild("tableRef") tableRef!: any;
 
   ngAfterViewChecked() {
+    window.dispatchEvent(new Event("resize"));
+
     if (!this.frozenScroll) {
       this.scrollToBottom();
     }
@@ -106,4 +108,106 @@ export class CombinedViewComponent implements AfterViewChecked, OnInit {
       tableElement.scrollTop = tableElement.scrollHeight;
     }
   }
+
+  printActivity = [
+    {
+      type: "indicator",
+      value: 200,
+      delta: { reference: 160 },
+      gauge: { axis: { visible: false, range: [0, 250] } },
+      domain: { row: 0, column: 0 },
+    },
+    // {
+    //   type: "indicator",
+    //   value: 120,
+    //   gauge: {
+    //     shape: "bullet",
+    //     axis: {
+    //       visible: false,
+    //       range: [-200, 200],
+    //     },
+    //   },
+    //   domain: { x: [0.1, 0.5], y: [0.15, 0.35] },
+    // },
+    // {
+    //   type: "indicator",
+    //   mode: "number+delta",
+    //   value: 300,
+    //   domain: { row: 0, column: 1 },
+    // },
+    // {
+    //   type: "indicator",
+    //   mode: "delta",
+    //   value: 40,
+    //   domain: { row: 1, column: 1 },
+    // },
+  ];
+
+  // Static data
+  printActivitylayout = {
+    autosize: true,
+    grid: {},
+    template: {
+      data: {
+        indicator: [
+          {
+            title: { text: "Printer Activity" },
+            mode: "number+delta+gauge",
+            delta: { reference: 90 },
+          },
+        ],
+      },
+    },
+  };
+
+  PlotlyChange(event: any) {
+    console.log(event);
+  }
+
+  bubbleChartTrace = {
+    x: [1, 2, 3, 4],
+
+    y: [10, 11, 12, 13],
+
+    mode: "markers",
+
+    marker: {
+      size: [40, 60, 80, 100],
+    },
+  };
+
+  bubbleChartRef = {
+    data: [this.bubbleChartTrace],
+    layout: {
+      title: "Marker Size",
+      autosize: true,
+      showlegend: false,
+    },
+  };
+
+  relayout(event: any) {
+    console.log(event);
+    this.bubbleChartRef.layout.autosize = true;
+  }
+
+  lineTrace1 = {
+    x: [1, 2, 3, 4],
+    y: [10, 15, 13, 17],
+
+    type: "scatter",
+  };
+
+  lineTrace2 = {
+    x: [1, 2, 3, 4],
+    y: [16, 5, 11, 9],
+
+    type: "scatter",
+  };
+
+  lineLayout = {
+    title: "Line and Scatter Plot",
+    autosize: true,
+  };
+
+  data = [this.lineTrace1, this.lineTrace2];
 }

@@ -1,105 +1,223 @@
-<c-row [gutter]="{}">
+<c-row>
   <c-col>
-    <c-card class="mb-4">
+    <c-card>
       <c-card-body>
-        <c-nav variant="tabs">
-          <a
-            [active]="true"
-            [cTabContent]="tabContent"
-            [routerLink]
-            [tabPaneIdx]="0"
-            cNavLink
-            >Incoming Data</a
-          >
-          <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
-            >Chart</a
-          >
+        <c-nav variant="pills">
+          <c-nav-item>
+            <a
+              [active]="true"
+              [cTabContent]="tabContent"
+              [routerLink]
+              [tabPaneIdx]="0"
+              cNavLink
+            >
+              In-Situ Inspection
+            </a>
+            <a
+              [cTabContent]="tabContent"
+              [routerLink]
+              [tabPaneIdx]="1"
+              cNavLink
+            >
+              Predictive Maintenance
+            </a>
+          </c-nav-item>
         </c-nav>
         <c-tab-content #tabContent="cTabContent">
-          <c-tab-pane class="p-3 table table-fixed-height">
-            <data-table [data]="tableData"></data-table>
+          <c-tab-pane>
+            <c-row>
+              <c-col>
+                <c-nav variant="tabs">
+                  <a
+                    [active]="true"
+                    [cTabContent]="printerTabs"
+                    [routerLink]
+                    [tabPaneIdx]="0"
+                    cNavLink
+                    >Printer 1</a
+                  >
+                  <a
+                    [cTabContent]="printerTabs"
+                    [routerLink]
+                    [tabPaneIdx]="1"
+                    cNavLink
+                    >Printer 2</a
+                  >
+                  <a
+                    [cTabContent]="printerTabs"
+                    [routerLink]
+                    [tabPaneIdx]="2"
+                    cNavLink
+                    >Sensor Information
+                  </a>
+                </c-nav>
+                <c-tab-content #printerTabs="cTabContent">
+                  <c-tab-pane class="p-3">
+                    <c-row>
+                      <c-col>
+                        <c-row [gutter]="{ gx: 4, gy: 4 }">
+                          <c-col [md]="4">
+                            <c-card>
+                              <c-card-body>
+                                <plotly-plot
+                                  [data]="printActivity"
+                                  [layout]="printActivitylayout"
+                                  [useResizeHandler]="true"
+                                  [updateOnLayoutChange]="true"
+                                  [style]="{
+                                    width: '300px',
+                                    height: '300px'
+                                  }"
+                                ></plotly-plot>
+                              </c-card-body>
+                            </c-card>
+                          </c-col>
+
+                          <c-col [md]="8">
+                            <c-card>
+                              <c-card-body>
+                                <c-card>
+                                  <c-card-body>
+                                    <!-- Implement form group here  -->
+                                    <form>
+                                      <c-form-check [inline]="true">
+                                        <input
+                                          cFormCheckInput
+                                          id="checkThree"
+                                          type="checkbox"
+                                        />
+                                        <label cFormCheckLabel for="checkThree"
+                                          >Parameters 1</label
+                                        >
+                                      </c-form-check>
+                                      <c-form-check inline="true">
+                                        <input
+                                          cFormCheckInput
+                                          id="checkFour"
+                                          type="checkbox"
+                                        />
+                                        <label cFormCheckLabel for="checkFour"
+                                          >Parameters 2</label
+                                        >
+                                      </c-form-check>
+                                      <c-form-check inline="true">
+                                        <input
+                                          cFormCheckInput
+                                          id="checkFive"
+                                          type="checkbox"
+                                        />
+                                        <label cFormCheckLabel for="checkFour"
+                                          >Parameters 3</label
+                                        >
+                                      </c-form-check>
+                                    </form>
+                                  </c-card-body>
+                                </c-card>
+
+                                <app-filterale-table></app-filterale-table>
+                              </c-card-body>
+                            </c-card>
+                          </c-col>
+                        </c-row>
+
+                        <c-row [gutter]="{ gx: 4, gy: 4 }">
+                          <c-col>
+                            <c-card>
+                              <c-card-body>
+                                <c-col>
+                                  <c-card>
+                                    <c-card-body>
+                                      <!-- Implement form group here  -->
+                                      <form>
+                                        <c-form-check [inline]="true">
+                                          <input
+                                            cFormCheckInput
+                                            id="checkThree"
+                                            type="checkbox"
+                                          />
+                                          <label
+                                            cFormCheckLabel
+                                            for="checkThree"
+                                            >Parameters 1</label
+                                          >
+                                        </c-form-check>
+                                        <c-form-check inline="true">
+                                          <input
+                                            cFormCheckInput
+                                            id="checkFour"
+                                            type="checkbox"
+                                          />
+                                          <label cFormCheckLabel for="checkFour"
+                                            >Parameters 2</label
+                                          >
+                                        </c-form-check>
+                                        <c-form-check inline="true">
+                                          <input
+                                            cFormCheckInput
+                                            id="checkFive"
+                                            type="checkbox"
+                                          />
+                                          <label cFormCheckLabel for="checkFour"
+                                            >Parameters 3</label
+                                          >
+                                        </c-form-check>
+                                      </form>
+                                    </c-card-body>
+                                  </c-card>
+                                </c-col>
+
+                                <c-col [md]="5">
+                                  <c-card>
+                                    <c-card-body>
+                                      <plotly-plot
+                                        [data]="bubbleChartRef.data"
+                                        [layout]="bubbleChartRef.layout"
+                                        [useResizeHandler]="true"
+                                        [style]="{
+                                          position: 'relative',
+                                          width: '100%',
+                                          height: '100%'
+                                        }"
+                                      ></plotly-plot>
+                                    </c-card-body>
+                                  </c-card>
+                                </c-col>
+
+                                <c-col [md]="6">
+                                  <c-card>
+                                    <c-card-body>
+                                      <plotly-plot
+                                        [data]="data"
+                                        [layout]="lineLayout"
+                                        [useResizeHandler]="true"
+                                        [style]="{
+                                          position: 'relative',
+                                          width: '100%',
+                                          height: '100%'
+                                        }"
+                                      ></plotly-plot>
+                                    </c-card-body>
+                                  </c-card>
+                                </c-col>
+                              </c-card-body>
+                            </c-card>
+                          </c-col>
+                        </c-row>
+                      </c-col>
+                    </c-row>
+                  </c-tab-pane>
+                  <c-tab-pane class="p-3"> Printer 2 </c-tab-pane>
+                  <c-tab-pane class="p-3"> Printer 3 </c-tab-pane>
+                </c-tab-content>
+              </c-col>
+            </c-row>
           </c-tab-pane>
-          <c-tab-pane class="p-3">
-            <data-chart [realTimeData]="realTimeData" [options]="header">
-            </data-chart>
+          <c-tab-pane>
+            <data-chart> </data-chart>
+            <app-warning-alert></app-warning-alert>
           </c-tab-pane>
         </c-tab-content>
-
-        <!-- <div [formGroup]="btnCheckGroup">
-          <c-button-group variant="outline">
-            <input
-              title="checkbox1"
-              class="btn-check"
-              formControlName="checkbox1"
-              type="checkbox" />
-            <label
-              for="checkbox1"
-              (click)="setValue('checkbox1')"
-              cButton
-              cFormCheckLabel
-              variant="ghost"
-              >Table</label
-            >
-
-            <input
-              title="checkbox2"
-              class="btn-check"
-              formControlName="checkbox2"
-              type="checkbox" />
-            <label
-              for="checkbox2"
-              (click)="setValue('checkbox2')"
-              cButton
-              cFormCheckLabel
-              variant="ghost"
-              >Chart</label
-            >
-          </c-button-group>
-        </div> -->
-
-        <!-- <c-col>
-          <c-card>
-            <c-card-body *ngIf="condition1 || condition2">
-              <div class="table table-fixed-height">
-                <ng-container *ngIf="condition1; then dataView"></ng-container>
-                <ng-container *ngIf="condition2; then chartView"></ng-container>
-              </div>
-            </c-card-body>
-          </c-card>
-        </c-col> -->
       </c-card-body>
     </c-card>
   </c-col>
-
-  <c-row>
-    <c-col [md]="4">
-      <c-card>
-        <c-card-body>
-          <div #tableRef class="table table-fixed-height">
-            <!-- <app-rt-table> </app-rt-table> -->
-            <app-warning-alert [failure]="failures"></app-warning-alert>
-          </div>
-        </c-card-body>
-      </c-card>
-    </c-col>
-  </c-row>
-  <!-- 
-  <c-row>
-    <c-col>
-      <c-card>
-        <c-card-header>
-          <h5>Header</h5>
-        </c-card-header>
-        <c-card-body>
-          <h5 cCardTitle>Model Name</h5>
-          <p cCardText>Print Progress: 75%</p>
-          <p cCardText>Estimated Time Remaining: 1h 20m</p>
-        </c-card-body>
-      </c-card>
-    </c-col>
-  </c-row>
-</c-row> -->
-
-  <ng-template #dataView> </ng-template>
-  <ng-template #chartView> </ng-template>
 </c-row>

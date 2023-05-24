@@ -1,0 +1,409 @@
+<c-row [gutter]="{ gy: 2, gx: 2 }">
+  <c-col md="3" *ngIf="isVisible">
+    <img
+      title="some image"
+      cImg
+      style="object-fit: cover; width: 100%; height: 100%"
+      rounded
+      src="../../../assets/img/avatars/1.jpg"
+      thumbnail
+      class="img-fluid"
+    />
+  </c-col>
+
+  <c-col [class.col-md-12]="!isVisible" [class.col-md-9]="isVisible">
+    <c-card>
+      <c-card-body>
+        <form
+          [formGroup]="modelForm"
+          [gutter]="{ gy: 2, gx: 3 }"
+          (ngSubmit)="onSubmit()"
+        >
+          <c-row>
+            <div class="col-md-6">
+              <label for="name">Assert ID:</label>
+              <select cSelect id="name" class="mb-3" formControlName="assetID">
+                <!--  *ngFor="let response of processAssetId(realTimeAssetResponse)" -->
+                <option disabled selected value>Select an option</option>
+                <!-- <option value="{{ response }}">{{ response }}</option> -->
+                <option value="71">71</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="identifier">Job ID:</label>
+              <select cSelect id="identifier" formControlName="identifierName">
+                <option disabled selected value>Select an option</option>
+                <option value="Job-4245">Job-4245</option>
+              </select>
+              <div
+                *ngIf="
+                  modelForm.get('identifierName')?.invalid &&
+                  modelForm.get('identifierName')?.touched
+                "
+                class="error-message"
+              >
+                <div
+                  *ngIf="modelForm.get('identifierName')?.hasError('required')"
+                >
+                  Please select an option.
+                </div>
+              </div>
+            </div>
+          </c-row>
+          <c-col [xs]="12">
+            <button cButton type="submit" [disabled]="modelForm.invalid">
+              Submit
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-card>
+    <c-card-body>
+      <c-nav variant="tabs">
+        <a
+          [active]="true"
+          [cTabContent]="tabContent"
+          [routerLink]
+          [tabPaneIdx]="0"
+          cNavLink
+          >RealTime</a
+        >
+        <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
+          >Historical</a
+        >
+      </c-nav>
+      <c-tab-content #tabContent="cTabContent">
+        <c-tab-pane class="p-3">
+          <c-row [gutter]="{ gx: 4, gy: 4 }">
+            <c-col>
+              <c-card *ngIf="isVisible">
+                <c-card-body>
+                  <!-- Content only shows if the request is 200  -->
+                  <div>
+                    <div class="table table-fixed-height">
+                      <caption>
+                        Asset Information
+                      </caption>
+                      <table class="table" cTable [responsive]="true">
+                        <thead>
+                          <tr class="stay">
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Bed Temp</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Nozzle Temp</th>
+                            <th scope="col">Infill Pattern</th>
+                            <th scope="col">Infill Density</th>
+                            <th scope="col">Print Speed</th>
+                            <th scope="col">Wall Thickness</th>
+                            <th scope="col">Tension Strength</th>
+                            <th scope="col">Fan Speed</th>
+                            <th scope="col">Layer Height</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td *ngFor="let data of realTimeDataSimulation">
+                              data
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </c-card-body>
+              </c-card>
+            </c-col>
+
+            <c-col [md]="12">
+              <c-card>
+                <c-card-body>
+                  <c-nav variant="pills">
+                    <a
+                      [active]="true"
+                      [cTabContent]="graphContent"
+                      [routerLink]
+                      [tabPaneIdx]="0"
+                      cNavLink
+                      >Chart</a
+                    >
+                    <a
+                      [cTabContent]="graphContent"
+                      [routerLink]
+                      [tabPaneIdx]="1"
+                      cNavLink
+                      >Table</a
+                    >
+                  </c-nav>
+                  <c-tab-content #graphContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                      <plotly-plot
+                        [data]="graphData"
+                        [layout]="graphLayout"
+                      ></plotly-plot>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                      <caption>
+                        Roughness
+                      </caption>
+                      <table class="table" cTable [responsive]="true">
+                        <thead>
+                          <tr class="stay">
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Bed Temp</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Nozzle Temp</th>
+                            <th scope="col">Infill Pattern</th>
+                            <th scope="col">Infill Density</th>
+                            <th scope="col">Print Speed</th>
+                            <th scope="col">Wall Thickness</th>
+                            <th scope="col">Tension Strength</th>
+                            <th scope="col">Fan Speed</th>
+                            <th scope="col">Layer Height</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td *ngFor="let data of realTimeDataSimulation">
+                              data
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </c-tab-pane>
+                  </c-tab-content>
+                </c-card-body>
+              </c-card>
+            </c-col>
+
+            <c-col [md]="12">
+              <c-card>
+                <c-card-body>
+                  <c-nav variant="pills">
+                    <a
+                      [active]="true"
+                      [cTabContent]="tensionContent"
+                      [routerLink]
+                      [tabPaneIdx]="0"
+                      cNavLink
+                      >Chart</a
+                    >
+                    <a
+                      [cTabContent]="tensionContent"
+                      [routerLink]
+                      [tabPaneIdx]="1"
+                      cNavLink
+                      >Table</a
+                    >
+                  </c-nav>
+                  <c-tab-content #tensionContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                      <plotly-plot
+                        [data]="tensionGraphData"
+                        [layout]="tensionLayout"
+                      ></plotly-plot>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                      <caption>
+                        Roughness
+                      </caption>
+                      <table class="table" cTable [responsive]="true">
+                        <thead>
+                          <tr class="stay">
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">X</th>
+                            <th scope="col">Y Temp</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Nozzle Temp</th>
+                            <th scope="col">Infill Pattern</th>
+                            <th scope="col">Infill Density</th>
+                            <th scope="col">Print Speed</th>
+                            <th scope="col">Wall Thickness</th>
+                            <th scope="col">Tension Strength</th>
+                            <th scope="col">Fan Speed</th>
+                            <th scope="col">Layer Height</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td *ngFor="let data of realTimeDataSimulation">
+                              data
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </c-tab-pane>
+                  </c-tab-content>
+                </c-card-body>
+              </c-card>
+            </c-col>
+
+            <c-col [md]="12">
+              <c-card>
+                <c-card-body>
+                  <c-nav variant="pills">
+                    <a
+                      [active]="true"
+                      [cTabContent]="elongationContent"
+                      [routerLink]
+                      [tabPaneIdx]="0"
+                      cNavLink
+                      >Chart</a
+                    >
+                    <a
+                      [cTabContent]="elongationContent"
+                      [routerLink]
+                      [tabPaneIdx]="1"
+                      cNavLink
+                      >Table</a
+                    >
+                  </c-nav>
+
+                  <c-tab-content #elongationContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                      <plotly-plot
+                        [data]="graphData"
+                        [layout]="graphLayout"
+                      ></plotly-plot>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                      <caption>
+                        Roughness
+                      </caption>
+                      <table class="table" cTable [responsive]="true">
+                        <thead>
+                          <tr class="stay">
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Bed Temp</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Nozzle Temp</th>
+                            <th scope="col">Infill Pattern</th>
+                            <th scope="col">Infill Density</th>
+                            <th scope="col">Print Speed</th>
+                            <th scope="col">Wall Thickness</th>
+                            <th scope="col">Tension Strength</th>
+                            <th scope="col">Fan Speed</th>
+                            <th scope="col">Layer Height</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td *ngFor="let data of realTimeDataSimulation">
+                              data
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </c-tab-pane>
+                  </c-tab-content>
+                </c-card-body>
+              </c-card>
+            </c-col>
+          </c-row>
+        </c-tab-pane>
+        <c-tab-pane class="p-3">
+          <c-row>
+            <!-- Build a custom component for this  -->
+            <form [formGroup]="historicalForm" (submit)="generateTableData()">
+              <c-row>
+                <div class="col-lg-3 col-sm-6">
+                  <label for="startDate">From</label>
+                  <input
+                    formControlName="fromDate"
+                    id="startDate"
+                    class="form-control"
+                    type="date"
+                  />
+                  <span id="startDateSelected"></span>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <label for="endDate">To</label>
+                  <input
+                    formControlName="endDate"
+                    id="endDate"
+                    class="form-control"
+                    type="date"
+                  />
+                  <span id="endDateSelected"></span>
+                </div>
+              </c-row>
+              <!-- Build a custom component for this  -->
+              <c-row>
+                <c-col xs="5">
+                  <label for="identifier">Data:</label>
+                  <select
+                    id="identifier"
+                    aria-label="Default select example"
+                    cSelect
+                    class="mb-3"
+                    multiple
+                    formControlName="optionsData"
+                  >
+                    <option>Please choose an option</option>
+                    <option [value]="1"></option>
+                  </select>
+                </c-col>
+              </c-row>
+              <div style="display: flex; justify-content: flex-end">
+                <button cButton type="submit" color="success">Generate</button>
+              </div>
+            </form>
+          </c-row>
+
+          <c-row *ngIf="historicalIsVisible">
+            <c-col>
+              <table cTable>
+                <caption>
+                  List of users
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Heading</th>
+                    <th scIdenope="col">Heading</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div style="display: flex; justify-content: flex-end">
+                <button (click)="downloadCSV()" cButton color="success">
+                  Download CSV
+                </button>
+              </div>
+            </c-col>
+          </c-row>
+        </c-tab-pane>
+      </c-tab-content>
+    </c-card-body>
+  </c-card>
+</c-row>

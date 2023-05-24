@@ -114,3 +114,4 @@ Asset Model Information
 Data flow for real time messages.
 
 New data --> Persistence storage --> Data Retrieval (You dont want to load all the data but just some within a range ) --> Client Request(Triggered based on time series) --> Hafnle Client request server side. (Applies Data Retrieval Methodology)
+

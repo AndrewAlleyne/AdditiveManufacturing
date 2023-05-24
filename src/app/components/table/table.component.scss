@@ -3,6 +3,12 @@ body {
   padding: 2rem;
 }
 
+.table-fixed-height {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 table {
   text-align: left;
   position: relative;

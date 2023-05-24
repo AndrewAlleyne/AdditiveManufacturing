@@ -1,29 +1,66 @@
-<c-row [gutter]="2" [xs]="1">
-  <c-col>
-    <!-- <c-card *ngFor="let failedDevice of failure" class="mb-4">
-      <c-card-header>
-        <a routerLink="/asset" cNavLink cCardLink>
-          {{ failedDevice.ProductID }}</a
-        >
-      </c-card-header>
-      <c-card-body>
-        <h6 cCardTitle>Asset Name</h6>
-        <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
-        <p cCardText>Maintenance Action: {{ failedDevice.Failure }}</p>
-      </c-card-body>
-      <c-card-footer>
-        <small class="text-medium-emphasis">Last updated 3 mins ago</small>
-      </c-card-footer>
-    </c-card> -->
-    <div *ngFor="let failedDevice of failure">
-      <c-callout color="danger">
-        <a routerLink="/asset" cNavLink cCardLink>
-          {{ failedDevice.ProductID }}</a
-        >
-        <h6 cCardTitle>Asset Name</h6>
-        <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
-        <p cCardText>Maintenance Action: {{ failedDevice.Failure }}</p>
-      </c-callout>
-    </div>
-  </c-col>
-</c-row>
+<c-card>
+  <c-card-body>
+    <h5 cCardTitle>Warnings / Alerts</h5>
+    <c-row [gutter]="{ gx: 2, gy: 2 }" [xs]="1">
+      <c-col [md]="4">
+        <c-card>
+          <c-card-body>
+            <div>
+              <c-callout color="danger">
+                <a routerLink="/asset" cNavLink cCardLink> </a>
+                <h6 cCardTitle>Asset Name</h6>
+                <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
+                <p cCardText>Maintenance Action:</p>
+              </c-callout>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card>
+          <c-card-body>
+            <div>
+              <c-callout color="danger">
+                <a routerLink="/asset" cNavLink cCardLink> </a>
+                <h6 cCardTitle>Asset Name</h6>
+                <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
+                <p cCardText>Maintenance Action:</p>
+              </c-callout>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card>
+          <c-card-body>
+            <div>
+              <c-callout color="danger">
+                <a routerLink="/asset" cNavLink cCardLink> </a>
+                <h6 cCardTitle>Asset Name</h6>
+                <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
+                <p cCardText>Maintenance Action:</p>
+              </c-callout>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card>
+          <c-card-body>
+            <div>
+              <c-callout color="danger">
+                <a routerLink="/asset" cNavLink cCardLink> </a>
+                <h6 cCardTitle>Asset Name</h6>
+                <h6 cCardSubtitle class="mb-2 text-medium-emphasis">Warning</h6>
+                <p cCardText>Maintenance Action:</p>
+              </c-callout>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>

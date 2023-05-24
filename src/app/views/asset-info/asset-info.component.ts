@@ -34,7 +34,7 @@ export class AssetInfoComponent {
 
   layout: any = {
     autosize: true,
-    title: "Donut Pie Chart",
+    title: "Chart",
     margin: { t: 0, b: 0, l: 0, r: 0 },
     showlegend: true,
     legend: {
@@ -59,6 +59,7 @@ export class AssetInfoComponent {
   isLoading: boolean = false;
   header: any[] = [];
   tableData: any[] = [];
+  filteredEventStream: any[] = [];
   ngOnInit() {
     this.modelIdentifier = this.modelIdentifierFormBuilder.group({
       modelName: this.modelIdentifierFormBuilder.control(""),
@@ -78,24 +79,27 @@ export class AssetInfoComponent {
     this.historicalForm.valueChanges.subscribe((value) => {
       console.log("Form value changed:", value);
 
-      const startDate = value.startDate;
-      const endDate = value.endate;
+      const startDate = value.fromDate;
+      const endDate = value.endDate;
 
       // Filter events based on the start and end dates
       const filteredEvents = this.tableData.filter((event) => {
-        const eventDate = new Date(event.timestamp); // Assuming the timestamp is stored in the 'timestamp' property of the event object
-        const startDateObj = new Date(startDate); // Convert the start date string to a Date object
-        const endDateObj = new Date(endDate); // Convert the end date string to a Date object
+        let parsedData = JSON.parse(event.data);
+        let eventDate = new Date(parsedData.Date).toISOString();
+        let startDateObj = new Date(startDate).toISOString();
+        let endDateObj = new Date(endDate).toISOString();
+
+        console.log(this.tableData);
 
         // Extract the date part from the event timestamp
-        const eventDateString = eventDate.toISOString().split("T")[0];
 
-        return (
-          eventDateString >= startDateObj.toISOString().split("T")[0] &&
-          eventDateString <= endDateObj.toISOString().split("T")[0]
-        );
+        return eventDate >= startDateObj && eventDate <= endDate;
       });
 
+      this.filteredEventStream = [
+        ...this.filteredEventStream,
+        ...filteredEvents,
+      ];
       console.log(filteredEvents);
     });
 

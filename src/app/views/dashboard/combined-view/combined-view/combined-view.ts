@@ -6,6 +6,7 @@ import {
   ButtonGroupModule,
   ButtonModule,
   CardModule,
+  DropdownModule,
   FormModule,
   GridModule,
   NavModule,
@@ -17,7 +18,10 @@ import { CommonModule } from "@angular/common";
 import { WarningAlertModule } from "src/app/components/warning-alert/warning-alert.module";
 import { RTTableComponentModule } from "./../../../../components/rt-table/rt-table.module";
 import { RouterModule } from "@angular/router";
-
+import { FilterableTableModule } from "src/app/components/filterale-table/ft.module";
+import { PlotlyDataComponent } from "src/app/plotly-data/plotly-data.component";
+import { PlotlyDataModule } from "src/app/plotly-data/plotly-data.module";
+import { PlotlyModule } from "angular-plotly.js";
 //FIX Theres a reason we label them with component name.Not to confused with third party library names. Fix after demo
 
 @NgModule({
@@ -25,7 +29,7 @@ import { RouterModule } from "@angular/router";
     CommonModule,
     FormModule,
     //Custom components
-    TableComponentModule,
+    // TableComponentModule,
     ChartModule,
     WarningAlertModule,
     RTTableComponentModule,
@@ -37,7 +41,11 @@ import { RouterModule } from "@angular/router";
     GridModule,
     NavModule,
     TabsModule,
-    RouterModule
+    DropdownModule,
+    RouterModule,
+    FilterableTableModule,
+    PlotlyModule,
+    FormModule,
   ],
   declarations: [CombinedViewComponent],
   exports: [CombinedViewComponent],
