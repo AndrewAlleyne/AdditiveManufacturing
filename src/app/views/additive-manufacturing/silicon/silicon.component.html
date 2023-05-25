@@ -79,6 +79,25 @@
         <c-tab-pane class="p-3">
           <c-row [gutter]="{ gx: 4, gy: 4 }">
             <c-col>
+              <c-card>
+                <c-card-body>
+                  <plotly-plot
+                    [data]="tensionGraph"
+                    [layout]="tension_Layout"
+                  ></plotly-plot>
+                </c-card-body>
+              </c-card>
+
+              <c-card>
+                <c-card-body>
+                  <plotly-plot
+                    [data]="bedTempGraph"
+                    [layout]="realTimeLayout"
+                  ></plotly-plot>
+                </c-card-body>
+              </c-card>
+            </c-col>
+            <c-col>
               <c-card *ngIf="isVisible">
                 <c-card-body>
                   <!-- Content only shows if the request is 200  -->
@@ -106,10 +125,9 @@
                         </thead>
 
                         <tbody>
-                          <tr>
-                            <td *ngFor="let data of realTimeDataSimulation">
-                              data
-                            </td>
+                          <tr *ngFor="let d of data.name; let i = index">
+                            <td>{{ d }}</td>
+                            <td>{{ data.value[i] }}</td>
                           </tr>
                         </tbody>
                       </table>

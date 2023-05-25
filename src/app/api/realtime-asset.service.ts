@@ -12,14 +12,14 @@ import { throwError } from "rxjs";
 })
 export class RealtimeAssetService {
   // Service consumes Backend rt data for plotly
-  private API_URL = "http://66.175.238.218:9080";
+  private API_URL = "http://198.251.74.197:9080";
 
   headers!: any;
   eventSource!: EventSource;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders().set(
       "Authorization",
-      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0OTYxNTg0fQ.cSwhd6MTSxvTYC-ccnexeIljH_x0Rxsty5umwU6lBb5gTHux4gW4OpS3kxbeihbUvAZZAsdNOJ9qkDnOv1X-Kg"
+      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0OTk4ODE5fQ.UlNZ1b4SrOj8_ydd1FI_xvmz3V5I-B6IVB8gNTrbzezXPg60RHNp7lFma9TCNtZeBBWwMszZlOanldWI9ifEtQ"
     );
   }
 
@@ -34,6 +34,7 @@ export class RealtimeAssetService {
   }
 
   getStreamData(assetID: number): Observable<any> {
+    console.log("asset id", assetID);
     return this.http
       .get(`${this.API_URL}/api/realtimeasset/${assetID}`, {
         headers: this.headers,

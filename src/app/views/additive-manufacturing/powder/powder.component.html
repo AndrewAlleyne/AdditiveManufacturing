@@ -42,6 +42,13 @@
                 <option value="Job-4245">Job-4245</option>
               </select>
             </div>
+            <div class="col-md-6">
+              <label for="layerId">Layer ID:</label>
+              <select cSelect id="layerId" formControlName="layerId">
+                <option disabled selected value>1 - 500</option>
+                <option value="388">388</option>
+              </select>
+            </div>
           </c-row>
           <c-col [xs]="12">
             <button cButton type="submit" [disabled]="modelForm.invalid">
@@ -61,7 +68,7 @@
             <c-card-body>
               <plotly-plot
                 #graph
-                [data]="graphData"
+                [data]="data"
                 [layout]="graphLayout"
                 [useResizeHandler]="true"
                 [style]="{
@@ -78,25 +85,16 @@
           <c-card>
             <c-card-body>
               <div cListGroup>
-                <a [routerLink] cListGroupItem>
+                <a
+                  [routerLink]
+                  cListGroupItem
+                  *ngFor="let d of params.name; let i = index"
+                >
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Param</h5>
+                    <h5 class="mb-1">{{ d }}</h5>
                   </div>
-                  <p class="mb-1">CONTENT</p>
-                  <small>Donec id elit non mi porta.</small>
-                </a>
-                <a [routerLink] cListGroupItem>
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Param</h5>
-                  </div>
-                  <p class="mb-1">CONTENT</p>
-                  <small>Donec id elit non mi porta.</small> </a
-                ><a [routerLink] cListGroupItem>
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Param</h5>
-                  </div>
-                  <p class="mb-1">CONTENT</p>
-                  <small>Donec id elit non mi porta.</small>
+                  <p class="mb-1">{{ params.value[i] }}</p>
+                  <p class="mb-1">{{ params.status[i] }}</p>
                 </a>
               </div>
             </c-card-body>
@@ -108,8 +106,8 @@
             <c-card-body>
               <plotly-plot
                 #graph
-                [data]="graphData"
-                [layout]="graphLayout"
+                [data]="z_variance"
+                [layout]="timeSeriesLayout"
                 [useResizeHandler]="true"
                 [style]="{
                   position: 'relative',
@@ -138,26 +136,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
+                  <tr *ngFor="let d of obj.x; let i = index">
+                    <td>{{ obj.ts[i] }}</td>
+                    <td>{{ d }}</td>
+                    <td>{{ obj.y[i] }}</td>
+                    <td>{{ obj.z[i] }}</td>
+                    <td>{{ obj.z_variance[i] }}</td>
                   </tr>
                 </tbody>
               </table>
