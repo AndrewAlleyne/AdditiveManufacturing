@@ -1,0 +1,99 @@
+<c-card>
+  <c-card-body>
+    <c-row>
+      <c-row [gutter]="{ gx: 2, gy: 2 }">
+        <c-col [md]="8">
+          <plotly-plot
+            #graph
+            [data]="graphData"
+            [layout]="graphLayout"
+            [useResizeHandler]="true"
+            [style]="{
+              position: 'relative',
+              width: '100%',
+              height: '100%'
+            }"
+          ></plotly-plot>
+        </c-col>
+        <c-col [md]="4">
+          <c-card>
+            <c-card-body>
+              <form [formGroup]="optionParameterFormGroup">
+                <c-form-check *ngFor="let data of idealHeader" [switch]="true">
+                  <input
+                    cFormCheckInput
+                    type="checkbox"
+                    [formControlName]="cleanString(data)"
+                  />
+                  <label cFormCheckLabel>{{ data }}</label>
+                </c-form-check>
+              </form>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col [md]="12">
+          <div class="table table-fixed-height">
+            <caption>
+              Paramters
+            </caption>
+            <table responsive cTable #tableRef cTable>
+              <thead>
+                <tr>
+                  <th>Time Stamp</th>
+                  <th>Product ID</th>
+                  <th>Air Temp</th>
+                  <th *ngIf="stringVisible[2]">Idea Air Temp</th>
+                  <th>Process Temp</th>
+                  <th *ngIf="stringVisible[4]">Ideal Process Temp</th>
+                  <th>Rotational Speed [RPM]</th>
+                  <th *ngIf="stringVisible[6]">Ideal RPM</th>
+                  <th>Torque [Nm]</th>
+                  <th *ngIf="stringVisible[8]">Ideal Value - Torque</th>
+                  <th>Tool wear [min]"</th>
+                  <th *ngIf="stringVisible[9]">Ideal Tool Wear</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- "Time Stamp",
+                "Product ID",
+                "Air temperature [K]",
+                "Ideal Value - Air Temp",
+                "Process temperature [K]",
+                "Ideal Value - Process Temp",
+                "Rotational speed [rpm]",
+                "Ideal Value - RPM",
+                "Torque [Nm]",
+                "Ideal Value - Torque ",
+                "Tool wear [min]",
+                "Ideal Tool Wear " -->
+                <tr *ngFor="let d of filteredData">
+                  <td>{{ d["Time Stamp"] }}</td>
+                  <td>{{ d["Product ID"] }}</td>
+                  <td>{{ d["Air temperature [K]"] }}</td>
+                  <td *ngIf="stringVisible[2]">
+                    {{ d["Ideal Value - Air Temp"] }}
+                  </td>
+                  <td>{{ d["Process temperature [K]"] }}</td>
+                  <td *ngIf="stringVisible[4]">
+                    {{ d["Ideal Value - Process Temp"] }}
+                  </td>
+                  <td>{{ d["Rotational speed [rpm]"] }}</td>
+                  <td *ngIf="stringVisible[6]">{{ d["Ideal Value - RPM"] }}</td>
+                  <td>{{ d["Torque [Nm]"] }}</td>
+                  <td *ngIf="stringVisible[8]">
+                    {{ d["Ideal Value - Torque"] }}
+                  </td>
+                  <td>{{ d["Tool wear [min]"] }}</td>
+                  <td *ngIf="stringVisible[9]">{{ d["Ideal Tool Wear "] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </c-col>
+      </c-row>
+    </c-row>
+  </c-card-body>
+</c-card>

@@ -28,13 +28,13 @@ export class PlotlyDataService {
     );
   }
 
-  getStreamData(): Observable<MessageEvent> {
+  getStreamData(): Observable<any> {
     if (!this.eventSource) {
       this.eventSource = new EventSource("http://localhost:8080/data");
     }
     return new Observable((observer) => {
       this.eventSource.addEventListener("message", (event: MessageEvent) => {
-        observer.next(event);
+        observer.next(event.data);
       });
 
       return () => {

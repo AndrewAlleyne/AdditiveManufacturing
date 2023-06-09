@@ -25,6 +25,10 @@ import { PlotlyDataModule } from "src/app/plotly-data/plotly-data.module";
 import { PlotlyModule } from "angular-plotly.js";
 //FIX Theres a reason we label them with component name.Not to confused with third party library names. Fix after demo
 
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+
+import { MatBadgeModule } from "@angular/material/badge";
+import { MatButtonModule } from "@angular/material/button";
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +39,6 @@ import { PlotlyModule } from "angular-plotly.js";
     WarningAlertModule,
     RTTableComponentModule,
     //Custom components
-    ButtonModule,
     ReactiveFormsModule,
     ButtonGroupModule,
     CardModule,
@@ -47,6 +50,9 @@ import { PlotlyModule } from "angular-plotly.js";
     FilterableTableModule,
     PlotlyModule,
     FormModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatSlideToggleModule,
   ],
   declarations: [CombinedViewComponent],
   exports: [CombinedViewComponent],

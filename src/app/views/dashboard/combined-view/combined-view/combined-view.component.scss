@@ -52,3 +52,11 @@ tbody {
   overflow-y: auto; /* Trigger vertical scroll    */
   overflow-x: hidden; /* Hide the horizontal scroll */
 }
+
+.dashCard {
+  height: 300px;
+}
+
+.dashTable {
+  min-height: 608px;
+}

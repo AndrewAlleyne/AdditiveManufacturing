@@ -112,7 +112,7 @@ export class PowderComponent implements OnInit {
     let s = new Set();
 
     if (assetId == 70) {
-      console.log("You selected ", assetId);
+      console.log("You selected ",typeof assetId);
 
       let idx = 5;
       this.realtimeAssetAPI.getAssetById().subscribe(

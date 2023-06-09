@@ -36,7 +36,7 @@ export class RealtimeAssetService {
   getStreamData(assetID: number): Observable<any> {
     console.log("asset id", assetID);
     return this.http
-      .get(`${this.API_URL}/api/realtimeasset/${assetID}`, {
+      .get(`${this.API_URL}/api/realtimeasset/all/${assetID}`, {
         headers: this.headers,
       })
       .pipe(
